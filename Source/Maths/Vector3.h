@@ -28,6 +28,7 @@ namespace RayTracer {
 
     // Alias so a vector can be used as point for code clarity.
     using Point3 = Vector3;
+    using Color = Vector3;
 
     std::ostream& operator<<(std::ostream& out, const Vector3& vector);
     Vector3 operator+(const Vector3& u, const Vector3& v);

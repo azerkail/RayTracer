@@ -20,13 +20,20 @@ set(msvc_cxx "$<COMPILE_LANG_AND_ID:CXX,MSVC>")
 
 # Create an executable to run the sandbox with.
 add_executable(RayTracer main.cpp
-        Source/FileHandler.cpp
-        Source/FileHandler.h
+        Source/Files/FileHandler.cpp
+        Source/Files/FileHandler.h
         Source/Logging/Log.cpp
         Source/Logging/Log.h
         Source/Logging/Log.h
         Source/Maths/Vector3.cpp
-        Source/Maths/Vector3.h)
+        Source/Maths/Vector3.h
+        Source/Renderers/Terminal.cpp
+        Source/Renderers/Terminal.h
+        Source/Converter.cpp
+        Source/Converter.h
+        Source/RayTracer.cpp
+        Source/RayTracer.h
+        Source/Renderers/RendererBase.h)
 
 # spdlog
 ## Include spdlog header files.

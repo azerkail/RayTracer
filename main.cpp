@@ -1,12 +1,15 @@
-#include "FileHandler.h"
 #include "Logging/Log.h"
+#include "RayTracer.h"
+#include "Renderers/Terminal.h"
 
 int main() {
     RayTracer::Log::Initialise();
 
-    const std::string& image = RayTracer::FileHandler::ProducePPMImage();
-    LOG_INFO(image);
-    RayTracer::FileHandler::WriteToFile(image);
+    RayTracer::Terminal terminal{};
+    RayTracer::RayTracer rayTracer{terminal};
+
+    rayTracer.Trace();
+    rayTracer.Finish();
 
     return 0;
 }
