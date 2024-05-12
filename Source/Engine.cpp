@@ -16,7 +16,7 @@ namespace RayTracer {
 
         m_camera = Camera{};
         m_camera.Initialise(imageWidth, imageHeight);
-        m_renderer = std::make_unique<FileRenderer>(m_camera, imageWidth, imageHeight);
+        m_renderer = std::make_unique<FileRenderer>(m_camera, m_baseImageWidth, m_baseImageHeight);
     }
 
     void Engine::Trace() {
