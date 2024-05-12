@@ -1,4 +1,4 @@
-#include <cmath>
+#include <cmath>const Vector3&
 #include "Vector3.h"
 
 namespace RayTracer {
