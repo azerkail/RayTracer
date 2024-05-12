@@ -1,7 +1,7 @@
 # Specify the CMake minimum required version.
 cmake_minimum_required(VERSION 3.29)
 
-# Create a basic project named "Avernus".
+# Create a basic project named "RayTracer".
 project(RayTracer VERSION 0.1.0 LANGUAGES CXX)
 
 # Stop CMake from prefixing "lib" to output file.
@@ -21,7 +21,14 @@ set(msvc_cxx "$<COMPILE_LANG_AND_ID:CXX,MSVC>")
 # Create an executable to run the sandbox with.
 add_executable(RayTracer main.cpp
         Source/FileHandler.cpp
-        Source/FileHandler.h)
+        Source/FileHandler.h
+        Source/Logging/Log.cpp
+        Source/Logging/Log.h
+        Source/Logging/Log.h)
+
+# spdlog
+## Include spdlog header files.
+target_include_directories(RayTracer PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Submodules/spdlog/include)
 
 # Include sub-directories to be able to include them directly.
 target_include_directories(RayTracer PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/Source)

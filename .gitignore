@@ -1,5 +1,5 @@
 #Build output files
-Builds/
+.bin/
 
 # Prerequisites
 *.d

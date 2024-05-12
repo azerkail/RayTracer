@@ -1,5 +1,6 @@
 #include <fstream>
 #include "FileHandler.h"
+#include "Logging/Log.h"
 
 namespace RayTracer {
     std::string FileHandler::ReadFile() {
@@ -25,8 +26,8 @@ namespace RayTracer {
         std::ofstream outputStream{m_fileName, std::ios::out | std::ios::trunc};
 
         if (!outputStream.is_open()) {
-            // TODO Log error.
-            return {};
+            AS_CRITICAL("Failed to open stream to write to file {0}", m_fileName);
+            assert(false);
         }
 
         std::string image{};
