@@ -20,10 +20,4 @@ namespace RayTracer {
     Point3 Ray::At(float value) const {
         return m_origin + value * m_direction;
     }
-
-    Color GetRayColor(const Ray& ray) {
-        Vector3 unitDirection = RayTracer::UnitVector(ray.Direction());
-        float alpha = 0.5f * (unitDirection.Y() + 1.0f);
-        return (1 - alpha) * Color{1, 1, 1} + alpha * Color{0.5, 0.7, 1};
-    }
 }

@@ -19,8 +19,6 @@ namespace RayTracer {
         Vector3 m_direction;
     };
 
-    Color GetRayColor(const Ray& ray);
-
 }
 
 #endif //RAYTRACER_RAY_H

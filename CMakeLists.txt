@@ -37,7 +37,8 @@ add_executable(RayTracer main.cpp
         Source/Maths/Ray.cpp
         Source/Maths/Ray.h
         Source/Camera/Camera.cpp
-        Source/Camera/Camera.h)
+        Source/Camera/Camera.h
+        Source/Maths/RayUtilities.h)
 
 # spdlog
 ## Include spdlog header files.

@@ -3,6 +3,7 @@
 #include "Camera/Camera.h"
 #include "Maths/Ray.h"
 #include "Renderers/FileRenderer.h"
+#include "Maths/RayUtilities.h"
 
 namespace RayTracer {
     void Engine::Initialise() {
@@ -14,7 +15,6 @@ namespace RayTracer {
         int imageHeight = imageWidth / static_cast<int>(aspectRatio);
         imageHeight = imageHeight < 1 ? 1 : imageHeight;
 
-        m_camera = Camera{};
         m_camera.Initialise(imageWidth, imageHeight);
         m_renderer = std::make_unique<FileRenderer>(m_camera, m_baseImageWidth, m_baseImageHeight);
     }
