@@ -3,39 +3,14 @@
 #include "Logging/Log.h"
 
 namespace RayTracer {
-    std::string FileHandler::ReadFile() {
-        std::ifstream inputStream{m_fileName};
-
-        if (!inputStream.is_open()) {
-            return ProduceBasicImage();
-        }
-
-        std::string image{};
-        std::string line{};
-
-        while (std::getline(inputStream, line)) {
-            image += line;
-            image += '\n';
-        }
-
-        inputStream.close();
-        return image;
-    }
-
-    std::string FileHandler::ProduceBasicImage() {
-        std::ofstream outputStream{m_fileName, std::ios::out | std::ios::trunc};
-
-        if (!outputStream.is_open()) {
-            AS_CRITICAL("Failed to open stream to write to file {0}", m_fileName);
-            assert(false);
-        }
-
+    std::string FileHandler::ProducePPMImage() {
         std::string image{};
 
-        // Required by ppm files.
         image += "P3\n" + std::to_string(m_baseImageWidth) + ' ' + std::to_string(m_baseImageHeight) + "\n255\n";
 
         for (int row = 0; row < m_baseImageHeight; ++row) {
+            LOG_INFO("Lines remaining: {0}", m_baseImageHeight - row);
+
             auto rowAsDouble = static_cast<double>(row);
 
             for (int column = 0; column < m_baseImageWidth; ++column) {
@@ -54,8 +29,18 @@ namespace RayTracer {
             }
         }
 
-        outputStream << image << std::endl;
-        outputStream.close();
         return image;
+    }
+
+    void FileHandler::WriteToFile(const std::string& contents) {
+        std::ofstream outputStream{m_fileName, std::ios::out | std::ios::trunc};
+
+        if (!outputStream.is_open()) {
+            LOG_CRITICAL("Failed to open stream to write to file {0}", m_fileName);
+            assert(false);
+        }
+
+        outputStream << contents << std::endl;
+        outputStream.close();
     }
 }

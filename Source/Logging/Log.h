@@ -16,11 +16,11 @@ namespace RayTracer {
     };
 
 // Macros for usability and stripping.
-#define AS_CRITICAL(...) ::RayTracer::Log::Logger()->critical(__VA_ARGS__)
-#define AS_ERROR(...) ::RayTracer::Log::Logger()->error(__VA_ARGS__)
-#define AS_WARNING(...) ::RayTracer::Log::Logger()->warn(__VA_ARGS__)
-#define AS_INFO(...) ::RayTracer::Log::Logger()->info(__VA_ARGS__)
-#define AS_TRACE(...) ::RayTracer::Log::Logger()->trace(__VA_ARGS__)
+#define LOG_CRITICAL(...) ::RayTracer::Log::Logger()->critical(__VA_ARGS__)
+#define LOG_ERROR(...) ::RayTracer::Log::Logger()->error(__VA_ARGS__)
+#define LOG_WARNING(...) ::RayTracer::Log::Logger()->warn(__VA_ARGS__)
+#define LOG_INFO(...) ::RayTracer::Log::Logger()->info(__VA_ARGS__)
+#define Log_TRACE(...) ::RayTracer::Log::Logger()->trace(__VA_ARGS__)
 
 }
 

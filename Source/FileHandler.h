@@ -7,15 +7,14 @@ namespace RayTracer {
 
     class FileHandler {
     public:
-        static std::string ReadFile();
+        static std::string ProducePPMImage();
+        static void WriteToFile(const std::string& contents);
 
     private:
         inline static const std::string& m_fileName = "image.ppm";
         inline static const int m_baseImageWidth = 256;
         inline static const int m_baseImageHeight = 256;
         inline static const double m_rgbConversionValue = 255.999;
-
-        static std::string ProduceBasicImage();
     };
 
 }
