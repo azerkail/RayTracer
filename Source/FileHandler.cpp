@@ -22,20 +22,22 @@ namespace RayTracer {
     }
 
     std::string FileHandler::ProduceBasicImage() {
-        std::ofstream outputStream{m_fileName, std::ios::out | std::ios::app | std::ios::trunc};
+        std::ofstream outputStream{m_fileName, std::ios::out | std::ios::trunc};
 
-        // We are writing a new file here, so it must not already be open.
-        if (outputStream.is_open()) {
+        if (!outputStream.is_open()) {
             // TODO Log error.
             return {};
         }
 
         std::string image{};
 
-        for (int row = 0; row < m_baseImageWidth; ++row) {
+        // Required by ppm files.
+        image += "P3\n" + std::to_string(m_baseImageWidth) + ' ' + std::to_string(m_baseImageHeight) + "\n255\n";
+
+        for (int row = 0; row < m_baseImageHeight; ++row) {
             auto rowAsDouble = static_cast<double>(row);
 
-            for (int column = 0; column < m_baseImageHeight; ++column) {
+            for (int column = 0; column < m_baseImageWidth; ++column) {
                 auto columnAsDouble = static_cast<double>(column);
 
                 double red = rowAsDouble / (m_baseImageWidth - 1);
@@ -46,7 +48,8 @@ namespace RayTracer {
                 int greenAsRGB = static_cast<int>(m_rgbConversionValue * green);
                 int blueAsRGB = static_cast<int>(m_rgbConversionValue * blue);
 
-                image += std::to_string(redAsRGB + ' ' + greenAsRGB + ' ' + blueAsRGB + '\n');
+                image += std::to_string(redAsRGB) + ' ' + std::to_string(greenAsRGB) + ' ' + std::to_string(blueAsRGB) +
+                         '\n';
             }
         }
 

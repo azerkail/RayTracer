@@ -13,7 +13,7 @@ namespace RayTracer {
         inline static const std::string& m_fileName = "image.ppm";
         inline static const int m_baseImageWidth = 256;
         inline static const int m_baseImageHeight = 256;
-        inline static const double m_rgbConversionValue = 255.99;
+        inline static const double m_rgbConversionValue = 255.999;
 
         static std::string ProduceBasicImage();
     };
