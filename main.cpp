@@ -1,6 +1,9 @@
 #include <iostream>
+#include "./Source/FileHandler.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    const std::string& image = RayTracer::FileHandler::ReadFile();
+
+    std::cout << image << std::endl;
     return 0;
 }
