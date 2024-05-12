@@ -12,9 +12,8 @@ namespace RayTracer {
         void Trace();
         void Terminate();
     private:
-        inline static const int m_baseImageWidth = 256;
-        inline static const int m_baseImageHeight = 256;
-
+        int m_imageWidth;
+        int m_imageHeight;
         Camera m_camera;
         std::unique_ptr<RendererBase> m_renderer;
     };

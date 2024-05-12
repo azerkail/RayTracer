@@ -9,14 +9,14 @@ namespace RayTracer {
     void Engine::Initialise() {
         // Calculate viewport size.
         float aspectRatio = 16.0 / 9.0;
-        int imageWidth = 400;
+        m_imageWidth = 400;
 
         // Make sure image height is always at least 1 pixel.
-        int imageHeight = imageWidth / static_cast<int>(aspectRatio);
-        imageHeight = imageHeight < 1 ? 1 : imageHeight;
+        m_imageHeight = m_imageWidth / static_cast<int>(aspectRatio);
+        m_imageHeight = m_imageHeight < 1 ? 1 : m_imageHeight;
 
-        m_camera.Initialise(imageWidth, imageHeight);
-        m_renderer = std::make_unique<FileRenderer>(m_camera, m_baseImageWidth, m_baseImageHeight);
+        m_camera.Initialise(m_imageWidth, m_imageHeight);
+        m_renderer = std::make_unique<FileRenderer>(m_camera, m_imageWidth, m_imageHeight);
     }
 
     void Engine::Trace() {
@@ -25,12 +25,12 @@ namespace RayTracer {
         auto pixelDeltaU = m_camera.PixelDeltaU();
         auto pixelDeltaV = m_camera.PixelDeltaV();
 
-        for (int row = 0; row < m_baseImageHeight; ++row) {
-            LOG_INFO("Lines remaining: {0}", m_baseImageHeight - row);
+        for (int row = 0; row < m_imageHeight; ++row) {
+            LOG_INFO("Lines remaining: {0}", m_imageHeight - row);
 
             auto rowAsFloat = static_cast<float>(row);
 
-            for (int column = 0; column < m_baseImageWidth; ++column) {
+            for (int column = 0; column < m_imageWidth; ++column) {
                 auto columnAsFloat = static_cast<float>(column);
                 auto pixelCenter = pixelOrigin + (columnAsFloat * pixelDeltaU) + (rowAsFloat * pixelDeltaV);
                 auto rayDirection = pixelCenter - cameraCenter;
