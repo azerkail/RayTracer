@@ -7,9 +7,9 @@ namespace RayTracer {
 
     class Camera {
     public:
-        Camera(int imageWidth, int imageHeight);
+        void Initialise(int imageWidth, int imageHeight);
 
-        [[nodiscard]] static float FocalLength() ;
+        [[nodiscard]] static float FocalLength();
         [[nodiscard]] Point3 Center() const;
         [[nodiscard]] Point3 PixelOrigin() const;
         [[nodiscard]] Color PixelDeltaU() const;

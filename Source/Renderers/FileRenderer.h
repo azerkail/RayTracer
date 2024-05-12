@@ -9,11 +9,13 @@ namespace RayTracer {
 
     class FileRenderer : public RendererBase {
     public:
-        void Initialise(int imageWidth, int imageHeight) override;
+        FileRenderer(const Camera& camera, int imageWidth, int imageHeight);
+
         void Render(const Color& pixel) override;
         void Terminate() const override;
 
     private:
+        const Camera& m_camera;
         std::string m_image;
     };
 

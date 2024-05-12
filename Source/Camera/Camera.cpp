@@ -1,7 +1,7 @@
 #include "Camera.h"
 
 namespace RayTracer {
-    Camera::Camera(int imageWidth, int imageHeight) {
+    void Camera::Initialise(int imageWidth, int imageHeight) {
         auto imageWidthAsFloat = static_cast<float>(imageWidth);
         auto imageHeightAsFloat = static_cast<float>(imageHeight);
         float viewportHeight = 2.0;
