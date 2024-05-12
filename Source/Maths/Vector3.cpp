@@ -90,7 +90,7 @@ namespace RayTracer {
         };
     }
 
-    Vector3 Unit(const Vector3& vector) {
+    Vector3 UnitVector(const Vector3& vector) {
         return vector / vector.Length();
     }
 }

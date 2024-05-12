@@ -1,7 +1,7 @@
 # Specify the CMake minimum required version.
 cmake_minimum_required(VERSION 3.29)
 
-# Create a basic project named "Engine".
+# Create a basic project named "RayTracer".
 project(RayTracer VERSION 0.1.0 LANGUAGES CXX)
 
 # Stop CMake from prefixing "lib" to output file.

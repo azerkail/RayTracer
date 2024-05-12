@@ -22,6 +22,8 @@ namespace RayTracer {
     }
 
     Color GetRayColor(const Ray& ray) {
-        return Color{0, 0, 0};
+        Vector3 unitDirection = RayTracer::UnitVector(ray.Direction());
+        float alpha = 0.5f * (unitDirection.Y() + 1.0f);
+        return (1 - alpha) * Color{1, 1, 1} + alpha * Color{0.5, 0.7, 1};
     }
 }

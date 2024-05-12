@@ -11,7 +11,7 @@ namespace RayTracer {
         static void Initialise();
         static const std::shared_ptr<spdlog::logger>& Logger();
     private:
-        inline static const std::string& m_loggerName = "Engine";
+        inline static const std::string& m_loggerName = "RayTracer";
         static std::shared_ptr<spdlog::logger> s_logger;
     };
 
