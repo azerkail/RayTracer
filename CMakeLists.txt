@@ -24,7 +24,9 @@ add_executable(RayTracer main.cpp
         Source/FileHandler.h
         Source/Logging/Log.cpp
         Source/Logging/Log.h
-        Source/Logging/Log.h)
+        Source/Logging/Log.h
+        Source/Maths/Vector3.cpp
+        Source/Maths/Vector3.h)
 
 # spdlog
 ## Include spdlog header files.
