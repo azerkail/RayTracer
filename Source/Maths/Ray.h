@@ -10,14 +10,16 @@ namespace RayTracer {
         Ray();
         Ray(const Point3& origin, const Vector3& direction);
 
-        const Point3& Origin() const;
-        const Vector3& Direction() const;
+        [[nodiscard]] const Point3& Origin() const;
+        [[nodiscard]] const Vector3& Direction() const;
 
-        Point3 At(float value) const;
+        [[nodiscard]] Point3 At(float value) const;
     private:
         Point3 m_origin;
         Vector3 m_direction;
     };
+
+    Color GetRayColor(const Ray& ray);
 
 }
 

@@ -1,13 +1,13 @@
-#ifndef RAYTRACER_RAYTRACER_H
-#define RAYTRACER_RAYTRACER_H
+#ifndef RAYTRACER_ENGINE_H
+#define RAYTRACER_ENGINE_H
 
 #include "Renderers/RendererBase.h"
 
 namespace RayTracer {
 
-    class RayTracer {
+    class Engine {
     public:
-        explicit RayTracer(const RendererBase& renderer);
+        explicit Engine(const RendererBase& renderer);
 
         void Trace();
         void Finish();
@@ -21,4 +21,4 @@ namespace RayTracer {
 
 }
 
-#endif //RAYTRACER_RAYTRACER_H
+#endif //RAYTRACER_ENGINE_H

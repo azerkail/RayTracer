@@ -18,6 +18,10 @@ namespace RayTracer {
     }
 
     Point3 Ray::At(float value) const {
-        return RayTracer::Point3();
+        return m_origin + value * m_direction;
+    }
+
+    Color GetRayColor(const Ray& ray) {
+        return Color{0, 0, 0};
     }
 }

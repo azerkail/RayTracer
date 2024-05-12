@@ -1,4 +1,4 @@
-#include <cmath>const Vector3&
+#include <cmath>
 #include "Vector3.h"
 
 namespace RayTracer {
@@ -68,6 +68,10 @@ namespace RayTracer {
 
     Vector3 operator*(const Vector3& vector, float value) {
         return {vector.X() * value, vector.Y() * value, vector.Z() * value};
+    }
+
+    Vector3 operator*(float value, const Vector3& vector) {
+        return vector * value;
     }
 
     Vector3 operator/(const Vector3& vector, float value) {

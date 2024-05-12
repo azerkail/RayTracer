@@ -35,6 +35,7 @@ namespace RayTracer {
     Vector3 operator-(const Vector3& u, const Vector3& v);
     Vector3 operator*(const Vector3& u, const Vector3& v);
     Vector3 operator*(const Vector3& vector, float value);
+    Vector3 operator*(float value, const Vector3& vector);
     Vector3 operator/(const Vector3& vector, float value);
     float Dot(const Vector3& u, const Vector3& v);
     Vector3 Cross(const Vector3& u, const Vector3& v);

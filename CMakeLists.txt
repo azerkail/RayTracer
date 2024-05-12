@@ -1,7 +1,7 @@
 # Specify the CMake minimum required version.
 cmake_minimum_required(VERSION 3.29)
 
-# Create a basic project named "RayTracer".
+# Create a basic project named "Engine".
 project(RayTracer VERSION 0.1.0 LANGUAGES CXX)
 
 # Stop CMake from prefixing "lib" to output file.
@@ -31,11 +31,13 @@ add_executable(RayTracer main.cpp
         Source/Renderers/Terminal.h
         Source/Converter.cpp
         Source/Converter.h
-        Source/RayTracer.cpp
-        Source/RayTracer.h
+        Source/Engine.cpp
+        Source/Engine.h
         Source/Renderers/RendererBase.h
         Source/Maths/Ray.cpp
-        Source/Maths/Ray.h)
+        Source/Maths/Ray.h
+        Source/Camera/Camera.cpp
+        Source/Camera/Camera.h)
 
 # spdlog
 ## Include spdlog header files.
