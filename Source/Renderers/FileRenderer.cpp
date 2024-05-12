@@ -4,7 +4,7 @@
 #include "Logging/Log.h"
 
 namespace RayTracer {
-    void FileRenderer::Initialise(float imageWidth, float imageHeight) {
+    void FileRenderer::Initialise(int imageWidth, int imageHeight) {
         m_image += "P3\n" + std::to_string(imageWidth) + ' ' + std::to_string(imageHeight) + "\n255\n";
     }
 

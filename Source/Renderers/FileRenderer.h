@@ -9,7 +9,7 @@ namespace RayTracer {
 
     class FileRenderer : public RendererBase {
     public:
-        void Initialise(float imageWidth, float imageHeight) override;
+        void Initialise(int imageWidth, int imageHeight) override;
         void Render(const Color& pixel) override;
         void Terminate() const override;
 

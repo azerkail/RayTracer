@@ -7,7 +7,7 @@ namespace RayTracer {
 
     class RendererBase {
     public:
-        virtual void Initialise(float imageWidth, float imageHeight) = 0;
+        virtual void Initialise(int imageWidth, int imageHeight) = 0;
         virtual void Render(const Color& vector3) = 0;
         virtual void Terminate() const = 0;
     };

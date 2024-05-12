@@ -9,10 +9,10 @@ namespace RayTracer {
     void Engine::Trace() {
         // Calculate viewport size.
         float aspectRatio = 16.0 / 9.0;
-        float imageWidth = 400;
+        int imageWidth = 400;
 
         // Make sure image height is always at least 1 pixel.
-        float imageHeight = imageWidth / aspectRatio;
+        int imageHeight = imageWidth / static_cast<int>(aspectRatio);
         imageHeight = imageHeight < 1 ? 1 : imageHeight;
 
         m_renderer.Initialise(imageWidth, imageHeight);

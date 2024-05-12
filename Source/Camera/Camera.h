@@ -7,7 +7,7 @@ namespace RayTracer {
 
     class Camera {
     public:
-        Camera(float imageWidth, float imageHeight);
+        Camera(int imageWidth, int imageHeight);
 
         [[nodiscard]] static float FocalLength() ;
         [[nodiscard]] Point3 Center() const;
