@@ -1,15 +1,15 @@
 #include "Logging/Log.h"
 #include "Engine.h"
-#include "Renderers/Terminal.h"
+#include "Renderers/FileRenderer.h"
 
 int main() {
     RayTracer::Log::Initialise();
 
-    RayTracer::Terminal terminal{};
-    RayTracer::Engine rayTracer{terminal};
+    RayTracer::FileRenderer fileRenderer{};
+    RayTracer::Engine rayTracer{fileRenderer};
 
     rayTracer.Trace();
-    rayTracer.Finish();
+    rayTracer.Terminate();
 
     return 0;
 }

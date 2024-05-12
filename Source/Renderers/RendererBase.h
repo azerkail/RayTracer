@@ -7,7 +7,9 @@ namespace RayTracer {
 
     class RendererBase {
     public:
-        [[nodiscard]] virtual std::string Render(const Color& vector3) const = 0;
+        virtual void Initialise(float imageWidth, float imageHeight) = 0;
+        virtual void Render(const Color& vector3) = 0;
+        virtual void Terminate() const = 0;
     };
 
 }

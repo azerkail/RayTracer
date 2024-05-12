@@ -7,16 +7,15 @@ namespace RayTracer {
 
     class Engine {
     public:
-        explicit Engine(const RendererBase& renderer);
+        explicit Engine(RendererBase& renderer);
 
         void Trace();
-        void Finish();
+        void Terminate();
     private:
         inline static const int m_baseImageWidth = 256;
         inline static const int m_baseImageHeight = 256;
 
-        const RendererBase& m_renderer;
-        std::string m_image;
+        RendererBase& m_renderer;
     };
 
 }

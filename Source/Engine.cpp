@@ -1,12 +1,10 @@
-#include <string>
 #include "Engine.h"
 #include "Logging/Log.h"
-#include "Files/FileHandler.h"
 #include "Camera/Camera.h"
 #include "Maths/Ray.h"
 
 namespace RayTracer {
-    Engine::Engine(const RendererBase& renderer) : m_image{}, m_renderer(renderer) {}
+    Engine::Engine(RendererBase& renderer) : m_renderer(renderer) {}
 
     void Engine::Trace() {
         // Calculate viewport size.
@@ -17,13 +15,13 @@ namespace RayTracer {
         float imageHeight = imageWidth / aspectRatio;
         imageHeight = imageHeight < 1 ? 1 : imageHeight;
 
+        m_renderer.Initialise(imageWidth, imageHeight);
+
         Camera camera{imageWidth, imageHeight};
         auto pixelOrigin = camera.PixelOrigin();
         auto cameraCenter = camera.Center();
         auto pixelDeltaU = camera.PixelDeltaU();
         auto pixelDeltaV = camera.PixelDeltaV();
-
-        m_image += "P3\n" + std::to_string(m_baseImageWidth) + ' ' + std::to_string(m_baseImageHeight) + "\n255\n";
 
         for (int row = 0; row < m_baseImageHeight; ++row) {
             LOG_INFO("Lines remaining: {0}", m_baseImageHeight - row);
@@ -38,14 +36,13 @@ namespace RayTracer {
                 Ray ray{cameraCenter, rayDirection};
                 Color color = RayTracer::GetRayColor(ray);
 
-                m_image += m_renderer.Render(color);
+                m_renderer.Render(color);
             }
         }
 
-        LOG_INFO(m_image);
     }
 
-    void Engine::Finish() {
-        FileHandler::WriteToFile(m_image);
+    void Engine::Terminate() {
+        m_renderer.Terminate();
     }
 }

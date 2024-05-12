@@ -27,8 +27,8 @@ add_executable(RayTracer main.cpp
         Source/Logging/Log.h
         Source/Maths/Vector3.cpp
         Source/Maths/Vector3.h
-        Source/Renderers/Terminal.cpp
-        Source/Renderers/Terminal.h
+        Source/Renderers/FileRenderer.cpp
+        Source/Renderers/FileRenderer.h
         Source/Converter.cpp
         Source/Converter.h
         Source/Engine.cpp
