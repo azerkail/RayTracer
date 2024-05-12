@@ -2,7 +2,8 @@
 <project version="4">
   <component name="CMakeSharedSettings">
     <configurations>
-      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+      <configuration PROFILE_NAME="Release" ENABLED="true" GENERATION_DIR="Builds/Release" CONFIG_NAME="Release" />
+      <configuration PROFILE_NAME="Debug" ENABLED="true" GENERATION_DIR="Builds/Debug" CONFIG_NAME="Debug" />
     </configurations>
   </component>
 </project>

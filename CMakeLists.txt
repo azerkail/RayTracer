@@ -1,6 +1,19 @@
+# Specify the CMake minimum required version.
 cmake_minimum_required(VERSION 3.29)
-project(RayTracer)
 
+# Create a basic project named "Avernus".
+project(RayTracer VERSION 0.1.0 LANGUAGES CXX)
+
+# Stop CMake from prefixing "lib" to output file.
+set(CMAKE_SHARED_LIBRARY_PREFIX "")
+
+# Set the C++ version.
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-add_executable(RayTracer main.cpp)
+# Warnings as errors.
+set(CMAKE_COMPILE_WARNING_AS_ERROR ON)
+
+# Set compiler flags per system.
+set(gcc_like_cxx "$<COMPILE_LANG_AND_ID:CXX,ARMClang,AppleClang,Clang,GNU,LCC>")
+set(msvc_cxx "$<COMPILE_LANG_AND_ID:CXX,MSVC>")
