@@ -1,8 +1,8 @@
-#include <valarray>
+#include <cmath>
 #include "Sphere.h"
 
 namespace RayTracer {
-    Sphere::Sphere(const Point3& center, float radius) : m_center(center), m_radius(radius) {}
+    Sphere::Sphere(const Point3& center, float radius) : m_center(center), m_radius(std::fmax(0.0f, radius)) {}
 
     bool Sphere::Hit(const Ray& ray, float rayMin, float rayMax, HitResult& result) const {
         Vector3 origin = m_center - ray.Origin();

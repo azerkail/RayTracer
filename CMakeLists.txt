@@ -38,7 +38,7 @@ add_executable(RayTracer main.cpp
         Source/Camera/Camera.h
         Source/Objects/Hittable.h
         Source/Objects/HitResult.h
-        Source/Objects/HittableResult.cpp
+        Source/Objects/HitResult.cpp
         Source/Objects/Sphere.cpp
         Source/Objects/Sphere.h
         Source/Collections/HittableVector.cpp
