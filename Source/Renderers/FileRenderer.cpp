@@ -1,7 +1,7 @@
 #include "FileRenderer.h"
-#include "Converter.h"
 #include "Files/FileHandler.h"
 #include "Logging/Log.h"
+#include "Utilities.h"
 
 namespace RayTracer {
     FileRenderer::FileRenderer(const Camera& camera, int imageWidth, int imageHeight) : m_camera(camera) {
@@ -13,9 +13,9 @@ namespace RayTracer {
         float green = pixel.Y();
         float blue = pixel.Z();
 
-        int redAsRGB = RayTracer::ConvertToRGB(red);
-        int greenAsRGB = RayTracer::ConvertToRGB(green);
-        int blueAsRGB = RayTracer::ConvertToRGB(blue);
+        int redAsRGB = Utilities::ConvertToRGB(red);
+        int greenAsRGB = Utilities::ConvertToRGB(green);
+        int blueAsRGB = Utilities::ConvertToRGB(blue);
 
         m_image += std::to_string(redAsRGB) + ' ' + std::to_string(greenAsRGB) + ' ' + std::to_string(blueAsRGB) + '\n';
     }

@@ -29,8 +29,6 @@ add_executable(RayTracer main.cpp
         Source/Maths/Vector3.h
         Source/Renderers/FileRenderer.cpp
         Source/Renderers/FileRenderer.h
-        Source/Converter.cpp
-        Source/Converter.h
         Source/Engine.cpp
         Source/Engine.h
         Source/Renderers/RendererBase.h
@@ -38,7 +36,19 @@ add_executable(RayTracer main.cpp
         Source/Maths/Ray.h
         Source/Camera/Camera.cpp
         Source/Camera/Camera.h
-        Source/Maths/RayUtilities.h)
+        Source/Objects/Hittable.h
+        Source/Objects/HitResult.h
+        Source/Objects/HittableResult.cpp
+        Source/Objects/Sphere.cpp
+        Source/Objects/Sphere.h
+        Source/Collections/HittableVector.cpp
+        Source/Collections/HittableVector.h
+        Source/Constants.h
+        Source/Utilities.h
+        Source/RayTracerPCH.h)
+
+# Precompiled headers.
+target_precompile_headers(RayTracer PRIVATE Source/RayTracerPCH.h)
 
 # spdlog
 ## Include spdlog header files.

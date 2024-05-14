@@ -1,9 +1,9 @@
 #include "Engine.h"
 #include "Logging/Log.h"
 #include "Camera/Camera.h"
-#include "Maths/Ray.h"
 #include "Renderers/FileRenderer.h"
-#include "Maths/RayUtilities.h"
+#include "Collections/HittableVector.h"
+#include "Objects/Sphere.h"
 
 namespace RayTracer {
     void Engine::Initialise() {
@@ -20,6 +20,13 @@ namespace RayTracer {
     }
 
     void Engine::Trace() {
+        // Build the world.
+        HittableVector world;
+
+        world.Add(std::make_shared<Sphere>(Point3(0, 0, 1), 0.5));
+        world.Add(std::make_shared<Sphere>(Point3(0, -100.5, -1), 100));
+
+        // Ray tracer.
         auto pixelOrigin = m_camera.PixelOrigin();
         auto cameraCenter = m_camera.Center();
         auto pixelDeltaU = m_camera.PixelDeltaU();
@@ -36,7 +43,7 @@ namespace RayTracer {
                 auto rayDirection = pixelCenter - cameraCenter;
 
                 Ray ray{cameraCenter, rayDirection};
-                Color color = RayTracer::GetRayColor(ray);
+                Color color = Utilities::GetRayColor(ray, world);
 
                 m_renderer->Render(color);
             }
