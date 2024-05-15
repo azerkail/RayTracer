@@ -47,6 +47,13 @@ add_executable(RayTracer main.cpp
         Source/Utilities.h
         Source/RayTracerPCH.h)
 
+# Set warning levels.
+if(MSVC)
+    target_compile_options(RayTracer PRIVATE /W4 /WX)
+else()
+    target_compile_options(RayTracer PRIVATE -Wall -Wextra -Wpedantic -Werror -Wconversion -Wsign-conversion)
+endif()
+
 # Precompiled headers.
 target_precompile_headers(RayTracer PRIVATE Source/RayTracerPCH.h)
 

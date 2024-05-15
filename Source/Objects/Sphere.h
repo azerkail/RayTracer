@@ -12,8 +12,8 @@ namespace RayTracer {
         bool Hit(const RayTracer::Ray& ray, float rayMin, float rayMax, RayTracer::HitResult& result) const override;
 
     private:
-        Point3 m_center;
-        float m_radius;
+        const Point3 m_center;
+        const float m_radius;
     };
 
 }

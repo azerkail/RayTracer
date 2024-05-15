@@ -8,7 +8,7 @@
 namespace RayTracer {
     void Engine::Initialise() {
         // Calculate viewport size.
-        float aspectRatio = 16.0 / 9.0;
+        float aspectRatio = 16.0f / 9.0f;
         m_imageWidth = 400;
 
         // Make sure image height is always at least 1 pixel.
