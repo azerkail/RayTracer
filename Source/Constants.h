@@ -13,7 +13,7 @@ namespace RayTracer {
 
         constexpr static const float Infinity = std::numeric_limits<float>::infinity();
         constexpr static const float Pi = 3.1415926535897932385f;
-        constexpr static const float RGBConversionValue = 255.999f;
+        constexpr static const int RGBConversionValue = 256;
         inline static const Interval Empty{};
         inline static const Interval Universe{-Infinity, +Infinity};
     };

@@ -12,6 +12,7 @@ namespace RayTracer {
         [[nodiscard]] float GetMax() const;
 
         [[nodiscard]] float Size() const;
+        [[nodiscard]] float Clamp(float value) const;
         [[nodiscard]] bool Contains(float value) const;
         [[nodiscard]] bool Surrounds(float value) const;
     private:

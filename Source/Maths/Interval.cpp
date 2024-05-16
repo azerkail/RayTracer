@@ -17,6 +17,18 @@ namespace RayTracer {
         return m_max - m_min;
     }
 
+    float Interval::Clamp(float value) const {
+        if (value < m_min) {
+            return m_min;
+        }
+
+        if (value > m_max) {
+            return m_max;
+        }
+
+        return value;
+    }
+
     bool Interval::Contains(float value) const {
         return m_min <= value && value <= m_max;
     }

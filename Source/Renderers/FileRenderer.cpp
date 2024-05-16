@@ -13,9 +13,10 @@ namespace RayTracer {
         float green = pixel.Y();
         float blue = pixel.Z();
 
-        int redAsRGB = Utilities::ConvertToRGB(red);
-        int greenAsRGB = Utilities::ConvertToRGB(green);
-        int blueAsRGB = Utilities::ConvertToRGB(blue);
+        static const Interval intensity{0.000f, 0.999f};
+        int redAsRGB = Utilities::ConvertToRGB(intensity.Clamp(red));
+        int greenAsRGB = Utilities::ConvertToRGB(intensity.Clamp(green));
+        int blueAsRGB = Utilities::ConvertToRGB(intensity.Clamp(blue));
 
         m_image += std::to_string(redAsRGB) + ' ' + std::to_string(greenAsRGB) + ' ' + std::to_string(blueAsRGB) + '\n';
     }

@@ -17,6 +17,7 @@ namespace RayTracer {
 
         camera.AspectRatio = 16.0f / 9.0f;
         camera.ImageWidth = 400;
+        camera.SamplesPerPixel = 100;
 
         camera.Render(world);
     }

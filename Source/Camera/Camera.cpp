@@ -12,6 +12,8 @@ namespace RayTracer {
         auto imageWidthAsFloat = static_cast<float>(ImageWidth);
         auto imageHeightAsFloat = static_cast<float>(m_imageHeight);
 
+        m_pixelSamplesScale = 1.0f / static_cast<float>(SamplesPerPixel);
+
         // Viewport dimensions.
         float focalLength = 1.0;
         float viewportHeight = 2.0;
@@ -36,21 +38,38 @@ namespace RayTracer {
         for (int row = 0; row < m_imageHeight; ++row) {
             LOG_INFO("Lines remaining: {0}", m_imageHeight - row);
 
-            auto rowAsFloat = static_cast<float>(row);
-
             for (int column = 0; column < ImageWidth; ++column) {
-                auto columnAsFloat = static_cast<float>(column);
-                auto pixelCenter = m_pixelOrigin + (columnAsFloat * m_pixelDeltaU) + (rowAsFloat * m_pixelDeltaV);
-                auto rayDirection = pixelCenter - m_center;
+                Color pixelColor;
 
-                Ray ray{m_center, rayDirection};
-                Color color = GetRayColor(ray, world);
+                for (int sample = 0; sample < SamplesPerPixel; ++sample) {
+                    Ray ray = GetRay(column, row);
+                    pixelColor += GetRayColor(ray, world);
+                }
 
-                m_renderer->Render(color);
+                m_renderer->Render(m_pixelSamplesScale * pixelColor);
             }
         }
 
         m_renderer->Terminate();
+    }
+
+    Vector3 Camera::SampleSquare() {
+        return Vector3{Utilities::RandomFloat() - 0.5f, Utilities::RandomFloat() - 0.5f, 0};
+    }
+
+    Ray Camera::GetRay(int column, int row) const {
+        auto columnAsFloat = static_cast<float>(column);
+        auto rowAsFloat = static_cast<float>(row);
+
+        Vector3 offset = SampleSquare();
+        Vector3 pixelSample = m_pixelOrigin
+                              + ((columnAsFloat + offset.X()) * m_pixelDeltaU)
+                              + ((rowAsFloat + offset.Y()) * m_pixelDeltaV);
+
+        Vector3 rayOrigin = m_center;
+        Vector3 rayDirection = pixelSample - rayOrigin;
+
+        return Ray{rayOrigin, rayDirection};
     }
 
     Color Camera::GetRayColor(const Ray& ray, const HittableVector& world) {
