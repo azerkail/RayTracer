@@ -4,7 +4,7 @@
 namespace RayTracer {
     Sphere::Sphere(const Point3& center, float radius) : m_center{center}, m_radius{std::fmax(0.0f, radius)} {}
 
-    bool Sphere::Hit(const Ray& ray, float rayMin, float rayMax, HitResult& result) const {
+    bool Sphere::Hit(const Ray& ray, Interval interval, HitResult& result) const {
         Vector3 origin = m_center - ray.Origin();
         float a = ray.Direction().LengthSquared();
         float h = Dot(ray.Direction(), origin);
@@ -18,10 +18,10 @@ namespace RayTracer {
         auto sqrtd = std::sqrt(discriminant);
         auto root = (h - sqrtd) / a;
 
-        if (root <= rayMin || rayMax <= root) {
+        if (!interval.Surrounds(root)) {
             root = (h + sqrtd) / a;
 
-            if (root <= rayMin || rayMax <= root) {
+            if (!interval.Surrounds(root)) {
                 return false;
             }
         }

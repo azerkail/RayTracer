@@ -19,5 +19,6 @@
 #include "Collections/HittableVector.h"
 #include "Maths/Ray.h"
 #include "Maths/Vector3.h"
+#include "Maths/Interval.h"
 
 #endif //RAYTRACER_RAYTRACERPCH_H

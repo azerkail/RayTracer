@@ -9,7 +9,7 @@ namespace RayTracer {
     public:
         Sphere(const Point3& center, float radius);
 
-        bool Hit(const RayTracer::Ray& ray, float rayMin, float rayMax, RayTracer::HitResult& result) const override;
+        bool Hit(const RayTracer::Ray& ray, Interval interval, RayTracer::HitResult& result) const override;
 
     private:
         const Point3 m_center;

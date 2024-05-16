@@ -45,7 +45,9 @@ add_executable(RayTracer main.cpp
         Source/Collections/HittableVector.h
         Source/Constants.h
         Source/Utilities.h
-        Source/RayTracerPCH.h)
+        Source/RayTracerPCH.h
+        Source/Maths/Interval.cpp
+        Source/Maths/Interval.h)
 
 # Set warning levels.
 if(MSVC)

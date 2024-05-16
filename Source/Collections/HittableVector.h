@@ -15,7 +15,7 @@ namespace RayTracer {
         void Clear();
         void Add(const std::shared_ptr<Hittable>& object);
 
-        bool Hit(const Ray& ray, float rayMin, float rayMax, HitResult& result) const;
+        bool Hit(const Ray& ray, Interval interval, HitResult& result) const;
 
     private:
         std::vector<std::shared_ptr<Hittable>> m_objects;

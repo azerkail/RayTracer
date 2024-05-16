@@ -9,7 +9,7 @@ namespace RayTracer {
     class Hittable {
     public:
         virtual ~Hittable() = default;
-        virtual bool Hit(const Ray& ray, float rayMin, float rayMax, HitResult& result) const = 0;
+        virtual bool Hit(const Ray& ray, Interval interval, HitResult& result) const = 0;
     };
 
 }
