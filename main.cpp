@@ -3,12 +3,6 @@
 
 int main() {
     RayTracer::Log::Initialise();
-
-    RayTracer::Engine rayTracer{};
-
-    rayTracer.Initialise();
-    rayTracer.Trace();
-    rayTracer.Terminate();
-
+    RayTracer::Engine::Trace();
     return 0;
 }

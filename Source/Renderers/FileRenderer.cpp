@@ -4,7 +4,7 @@
 #include "Utilities.h"
 
 namespace RayTracer {
-    FileRenderer::FileRenderer(const Camera& camera, int imageWidth, int imageHeight) : m_camera(camera) {
+    void FileRenderer::Initialise(int imageWidth, int imageHeight) {
         m_image += "P3\n" + std::to_string(imageWidth) + ' ' + std::to_string(imageHeight) + "\n255\n";
     }
 

@@ -2,7 +2,6 @@
 #define RAYTRACER_RENDERERBASE_H
 
 #include "Maths/Vector3.h"
-#include "Camera/Camera.h"
 
 namespace RayTracer {
 
@@ -10,6 +9,7 @@ namespace RayTracer {
     public:
         virtual ~RendererBase() = default;
 
+        virtual void Initialise(int imageWidth, int imageHeight) = 0;
         virtual void Render(const Color& vector3) = 0;
         virtual void Terminate() const = 0;
     };

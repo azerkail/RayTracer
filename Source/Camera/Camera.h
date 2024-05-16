@@ -2,24 +2,29 @@
 #define RAYTRACER_CAMERA_H
 
 #include "Maths/Vector3.h"
+#include "Renderers/RendererBase.h"
 
 namespace RayTracer {
 
     class Camera {
     public:
-        void Initialise(int imageWidth, int imageHeight);
+        explicit Camera(std::unique_ptr<RendererBase> renderer);
 
-        [[nodiscard]] static float FocalLength();
-        [[nodiscard]] Point3 Center() const;
-        [[nodiscard]] Point3 PixelOrigin() const;
-        [[nodiscard]] Color PixelDeltaU() const;
-        [[nodiscard]] Color PixelDeltaV() const;
+        float AspectRatio = 1.0;
+        int ImageWidth = 100;
+
+        void Render(const HittableVector& world);
 
     private:
+        std::unique_ptr<RendererBase> m_renderer;
+        int m_imageHeight = 0;
         Point3 m_center;
         Point3 m_pixelOrigin;
-        Color m_pixelDeltaU;
-        Color m_pixelDeltaV;
+        Vector3 m_pixelDeltaU;
+        Vector3 m_pixelDeltaV;
+
+        void Initialise();
+        static Color GetRayColor(const Ray& ray, const HittableVector& world);
     };
 
 }
