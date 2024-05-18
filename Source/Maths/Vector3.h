@@ -37,9 +37,16 @@ namespace RayTracer {
     Vector3 operator*(const Vector3& vector, float value);
     Vector3 operator*(float value, const Vector3& vector);
     Vector3 operator/(const Vector3& vector, float value);
+
     float Dot(const Vector3& u, const Vector3& v);
     Vector3 Cross(const Vector3& u, const Vector3& v);
     Vector3 UnitVector(const Vector3& vector);
+    Vector3 Random();
+    Vector3 Random(float min, float max);
+    Vector3 RandomUnitSphere();
+    Vector3 RandomUnitVector();
+    Vector3 RandomOnHemisphere(const Vector3& normal);
+
 }
 
 #endif //RAYTRACER_VECTOR3_H

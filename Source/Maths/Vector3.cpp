@@ -93,4 +93,35 @@ namespace RayTracer {
     Vector3 UnitVector(const Vector3& vector) {
         return vector / vector.Length();
     }
+
+    Vector3 Random() {
+        return {Utilities::RandomFloat(), Utilities::RandomFloat(), Utilities::RandomFloat()};
+    }
+
+    Vector3 Random(float min, float max) {
+        return {Utilities::RandomFloat(min, max), Utilities::RandomFloat(min, max), Utilities::RandomFloat(min, max)};
+    }
+
+    Vector3 RandomUnitSphere() {
+        while (true) {
+            auto point = Random(-1, 1);
+            if (point.LengthSquared() < 1) {
+                return point;
+            }
+        }
+    }
+
+    Vector3 RandomUnitVector() {
+        return UnitVector(RandomUnitSphere());
+    }
+
+    Vector3 RandomOnHemisphere(const Vector3& normal) {
+        auto unitSphere = RandomUnitVector();
+
+        if (Dot(unitSphere, normal) > 0.0f) {
+            return unitSphere;
+        }
+
+        return -unitSphere;
+    }
 }

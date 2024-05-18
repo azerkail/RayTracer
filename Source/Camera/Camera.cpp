@@ -76,7 +76,8 @@ namespace RayTracer {
         HitResult result;
 
         if (world.Hit(ray, Interval{0, Constants::Infinity}, result)) {
-            return 0.5 * (result.Normal + Color{1, 1, 1});
+            auto direction = RandomOnHemisphere(result.Normal);
+            return 0.5 * GetRayColor(Ray{result.Point, direction}, world);
         }
 
         Vector3 unitDirection = UnitVector(ray.Direction());
