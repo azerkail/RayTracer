@@ -5,6 +5,9 @@
 
 namespace RayTracer {
 
+    // Prevents circular dependency with HitResult.
+    class HitResult;
+
     class IMaterial {
     public:
         virtual ~IMaterial() = default;

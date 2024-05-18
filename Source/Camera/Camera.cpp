@@ -5,7 +5,7 @@ namespace RayTracer {
 
     void Camera::Initialise() {
         // Make sure image height is always at least 1 pixel.
-        m_imageHeight = ImageWidth / static_cast<int>(AspectRatio);
+        m_imageHeight = static_cast<int>(static_cast<float>(ImageWidth) / AspectRatio);
         m_imageHeight = m_imageHeight < 1 ? 1 : m_imageHeight;
 
         auto imageWidthAsFloat = static_cast<float>(ImageWidth);

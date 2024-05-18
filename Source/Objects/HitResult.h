@@ -6,8 +6,7 @@
 
 namespace RayTracer {
 
-    // Prevents circular dependency with IMaterial which uses HitResult by defining the class here to let the compiler
-    // know the implementation will be found somewhere else.
+    // Prevents circular dependency with IMaterial.
     class IMaterial;
 
     class HitResult {
