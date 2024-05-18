@@ -1,6 +1,5 @@
 #include <fstream>
 #include "FileHandler.h"
-#include "Logging/Log.h"
 
 namespace RayTracer {
     void FileHandler::WriteToFile(const std::string& contents) {

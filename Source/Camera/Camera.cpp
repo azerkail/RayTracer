@@ -1,8 +1,7 @@
 #include "Camera.h"
-#include "Logging/Log.h"
 
 namespace RayTracer {
-    Camera::Camera(std::unique_ptr<RendererBase> renderer) : m_renderer(std::move(renderer)) {}
+    Camera::Camera(std::unique_ptr<IRenderer> renderer) : m_renderer(std::move(renderer)) {}
 
     void Camera::Initialise() {
         // Make sure image height is always at least 1 pixel.

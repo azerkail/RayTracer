@@ -24,14 +24,13 @@ add_executable(RayTracer main.cpp
         Source/Files/FileHandler.h
         Source/Logging/Log.cpp
         Source/Logging/Log.h
-        Source/Logging/Log.h
         Source/Maths/Vector3.cpp
         Source/Maths/Vector3.h
         Source/Renderers/FileRenderer.cpp
         Source/Renderers/FileRenderer.h
         Source/Engine.cpp
         Source/Engine.h
-        Source/Renderers/RendererBase.h
+        Source/Renderers/IRenderer.h
         Source/Maths/Ray.cpp
         Source/Maths/Ray.h
         Source/Camera/Camera.cpp
@@ -47,7 +46,8 @@ add_executable(RayTracer main.cpp
         Source/Utilities.h
         Source/RayTracerPCH.h
         Source/Maths/Interval.cpp
-        Source/Maths/Interval.h)
+        Source/Maths/Interval.h
+        Source/Materials/IMaterial.h)
 
 # Set warning levels.
 if(MSVC)

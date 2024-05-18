@@ -1,14 +1,13 @@
 #ifndef RAYTRACER_CAMERA_H
 #define RAYTRACER_CAMERA_H
 
-#include "Maths/Vector3.h"
-#include "Renderers/RendererBase.h"
+#include "Renderers/IRenderer.h"
 
 namespace RayTracer {
 
     class Camera {
     public:
-        explicit Camera(std::unique_ptr<RendererBase> renderer);
+        explicit Camera(std::unique_ptr<IRenderer> renderer);
 
         float AspectRatio = 1.0;
         int ImageWidth = 100;
@@ -18,7 +17,7 @@ namespace RayTracer {
         void Render(const HittableVector& world);
 
     private:
-        std::unique_ptr<RendererBase> m_renderer;
+        std::unique_ptr<IRenderer> m_renderer;
         int m_imageHeight = 0;
         float m_pixelSamplesScale = 0;
         Point3 m_center;

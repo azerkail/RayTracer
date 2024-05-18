@@ -1,4 +1,4 @@
-#include "Logging/Log.h"
+
 #include "Engine.h"
 
 int main() {

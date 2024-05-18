@@ -2,12 +2,11 @@
 #define RAYTRACER_FILERENDERER_H
 
 #include <ostream>
-#include "Maths/Vector3.h"
-#include "RendererBase.h"
+#include "IRenderer.h"
 
 namespace RayTracer {
 
-    class FileRenderer : public RendererBase {
+    class FileRenderer : public IRenderer {
     public:
         void Initialise(int imageWidth, int imageHeight) override;
         void Render(const Color& pixel) override;

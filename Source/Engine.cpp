@@ -1,6 +1,4 @@
 #include "Engine.h"
-
-#include "Logging/Log.h"
 #include "Camera/Camera.h"
 #include "Renderers/FileRenderer.h"
 #include "Objects/Sphere.h"

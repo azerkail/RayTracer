@@ -16,6 +16,7 @@
 // Common project headers.
 #include "Constants.h"
 #include "Utilities.h"
+#include "Logging/Log.h"
 #include "Collections/HittableVector.h"
 #include "Maths/Ray.h"
 #include "Maths/Vector3.h"

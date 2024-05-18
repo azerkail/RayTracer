@@ -1,13 +1,11 @@
-#ifndef RAYTRACER_RENDERERBASE_H
-#define RAYTRACER_RENDERERBASE_H
-
-#include "Maths/Vector3.h"
+#ifndef RAYTRACER_IRENDERER_H
+#define RAYTRACER_IRENDERER_H
 
 namespace RayTracer {
 
-    class RendererBase {
+    class IRenderer {
     public:
-        virtual ~RendererBase() = default;
+        virtual ~IRenderer() = default;
 
         virtual void Initialise(int imageWidth, int imageHeight) = 0;
         virtual void Render(const Color& vector3) = 0;
@@ -16,4 +14,4 @@ namespace RayTracer {
 
 }
 
-#endif //RAYTRACER_RENDERERBASE_H
+#endif //RAYTRACER_IRENDERER_H

@@ -1,6 +1,5 @@
 #include "FileRenderer.h"
 #include "Files/FileHandler.h"
-#include "Logging/Log.h"
 #include "Utilities.h"
 
 namespace RayTracer {
