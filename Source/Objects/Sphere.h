@@ -14,6 +14,7 @@ namespace RayTracer {
     private:
         const Point3 m_center;
         const float m_radius;
+        std::shared_ptr<IMaterial> m_material;
     };
 
 }

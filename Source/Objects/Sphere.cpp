@@ -28,6 +28,7 @@ namespace RayTracer {
 
         result.Interval = root;
         result.Point = ray.At(result.Interval);
+        result.Material = m_material;
 
         Vector3 outwardNormal = (result.Point - m_center) / m_radius;
         result.SetFaceNormal(ray, outwardNormal);
