@@ -43,7 +43,7 @@ namespace RayTracer {
 
                 for (int sample = 0; sample < SamplesPerPixel; ++sample) {
                     Ray ray = GetRay(column, row);
-                    pixelColor += GetRayColor(ray, world);
+                    pixelColor += GetRayColor(ray, MaxDepth, world);
                 }
 
                 m_renderer->Render(m_pixelSamplesScale * pixelColor);
@@ -72,12 +72,16 @@ namespace RayTracer {
         return Ray{rayOrigin, rayDirection};
     }
 
-    Color Camera::GetRayColor(const Ray& ray, const HittableVector& world) {
+    Color Camera::GetRayColor(const Ray& ray, int depth, const HittableVector& world) { // NOLINT(*-no-recursion)
+        if (depth <= 0) {
+            return Color{};
+        }
+
         HitResult result;
 
-        if (world.Hit(ray, Interval{0, Constants::Infinity}, result)) {
+        if (world.Hit(ray, Interval{0.001f, Constants::Infinity}, result)) {
             auto direction = RandomOnHemisphere(result.Normal);
-            return 0.5 * GetRayColor(Ray{result.Point, direction}, world);
+            return 0.5 * GetRayColor(Ray{result.Point, direction}, depth - 1, world);
         }
 
         Vector3 unitDirection = UnitVector(ray.Direction());

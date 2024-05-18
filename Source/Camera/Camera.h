@@ -13,6 +13,7 @@ namespace RayTracer {
         float AspectRatio = 1.0;
         int ImageWidth = 100;
         int SamplesPerPixel = 10;
+        int MaxDepth = 10;
 
         void Render(const HittableVector& world);
 
@@ -29,7 +30,7 @@ namespace RayTracer {
         [[nodiscard]] Ray GetRay(int column, int row) const;
 
         static Vector3 SampleSquare();
-        static Color GetRayColor(const Ray& ray, const HittableVector& world);
+        static Color GetRayColor(const Ray& ray, int depth, const HittableVector& world);
     };
 
 }

@@ -53,7 +53,7 @@ add_executable(RayTracer main.cpp
 if(MSVC)
     target_compile_options(RayTracer PRIVATE /W4 /WX)
 else()
-    target_compile_options(RayTracer PRIVATE -Wall -Wextra -Wpedantic -Werror -Wconversion -Wsign-conversion)
+    target_compile_options(RayTracer PRIVATE -Wall -Wextra -Wpedantic -Werror -Wconversion -Wsign-conversion -Wno-unknown-pragmas)
 endif()
 
 # Precompiled headers.
