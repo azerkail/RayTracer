@@ -47,7 +47,11 @@ add_executable(RayTracer main.cpp
         Source/RayTracerPCH.h
         Source/Maths/Interval.cpp
         Source/Maths/Interval.h
-        Source/Materials/IMaterial.h)
+        Source/Materials/IMaterial.h
+        Source/Materials/Lambertian.cpp
+        Source/Materials/Lambertian.h
+        Source/Materials/Metal.cpp
+        Source/Materials/Metal.h)
 
 # Set warning levels.
 if(MSVC)

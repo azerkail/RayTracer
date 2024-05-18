@@ -8,7 +8,7 @@ namespace RayTracer {
 
     class Constants {
     public:
-        // Disallow creating this class as it should only hold public constant values.
+        // Disallow creating this class as it should only hold public constant m_values.
         Constants() = delete;
 
         constexpr static const float Infinity = std::numeric_limits<float>::infinity();

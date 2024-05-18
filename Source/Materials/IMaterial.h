@@ -6,9 +6,11 @@
 namespace RayTracer {
 
     class IMaterial {
+    public:
         virtual ~IMaterial() = default;
 
-        [[nodiscard]] virtual bool Scatter(const Ray& rayIn, const HitResult& result) const = 0;
+        [[nodiscard]] virtual bool Scatter(const Ray& rayIn, const HitResult& result, Color& attenuation,
+                                           Ray& scattered) const = 0;
     };
 
 }

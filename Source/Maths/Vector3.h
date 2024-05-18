@@ -22,8 +22,9 @@ namespace RayTracer {
         float& operator[](int index);
         [[nodiscard]] float Length() const;
         [[nodiscard]] float LengthSquared() const;
+        [[nodiscard]] bool NearZero() const;
     private:
-        float values[3];
+        float m_values[3];
     };
 
     // Alias so a vector can be used as point for code clarity.
@@ -46,6 +47,7 @@ namespace RayTracer {
     Vector3 RandomUnitSphere();
     Vector3 RandomUnitVector();
     Vector3 RandomOnHemisphere(const Vector3& normal);
+    Vector3 Reflect(const Vector3& vector, const Vector3 normal);
 
 }
 

@@ -2,31 +2,31 @@
 #include "Vector3.h"
 
 namespace RayTracer {
-    Vector3::Vector3() : values{0, 0, 0} {}
+    Vector3::Vector3() : m_values{0, 0, 0} {}
 
-    Vector3::Vector3(float x, float y, float z) : values{x, y, z} {}
+    Vector3::Vector3(float x, float y, float z) : m_values{x, y, z} {}
 
-    float Vector3::X() const { return values[0]; }
+    float Vector3::X() const { return m_values[0]; }
 
-    float Vector3::Y() const { return values[1]; }
+    float Vector3::Y() const { return m_values[1]; }
 
-    float Vector3::Z() const { return values[2]; }
+    float Vector3::Z() const { return m_values[2]; }
 
     Vector3 Vector3::operator-() const {
-        return {-values[0], -values[1], -values[2]};
+        return {-m_values[0], -m_values[1], -m_values[2]};
     }
 
     Vector3& Vector3::operator+=(const Vector3& other) {
-        values[0] += other.values[0];
-        values[1] += other.values[1];
-        values[2] += other.values[2];
+        m_values[0] += other.m_values[0];
+        m_values[1] += other.m_values[1];
+        m_values[2] += other.m_values[2];
         return *this;
     }
 
     Vector3& Vector3::operator*=(float value) {
-        values[0] *= value;
-        values[1] *= value;
-        values[2] *= value;
+        m_values[0] *= value;
+        m_values[1] *= value;
+        m_values[2] *= value;
         return *this;
     }
 
@@ -35,11 +35,11 @@ namespace RayTracer {
     }
 
     float Vector3::operator[](int index) const {
-        return values[index];
+        return m_values[index];
     }
 
     float& Vector3::operator[](int index) {
-        return values[index];
+        return m_values[index];
     }
 
     float Vector3::Length() const {
@@ -47,7 +47,12 @@ namespace RayTracer {
     }
 
     float Vector3::LengthSquared() const {
-        return values[0] * values[0] + values[1] * values[1] + values[2] * values[2];
+        return m_values[0] * m_values[0] + m_values[1] * m_values[1] + m_values[2] * m_values[2];
+    }
+
+    bool Vector3::NearZero() const {
+        auto nearZero = 1e-8f;
+        return std::fabs(m_values[0]) < nearZero && std::fabs(m_values[1]) < nearZero && std::fabs(m_values[2]) < 2;
     }
 
     std::ostream& operator<<(std::ostream& out, const Vector3& vector) {
@@ -123,5 +128,9 @@ namespace RayTracer {
         }
 
         return -unitSphere;
+    }
+
+    Vector3 Reflect(const Vector3& vector, const Vector3 normal) {
+        return vector - 2 * Dot(vector, normal) * normal;
     }
 }
