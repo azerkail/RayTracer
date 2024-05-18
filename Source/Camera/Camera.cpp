@@ -79,8 +79,14 @@ namespace RayTracer {
         HitResult result;
 
         if (world.Hit(ray, Interval{0.001f, Constants::Infinity}, result)) {
-            auto direction = result.Normal + RandomUnitVector();
-            return 0.1f * GetRayColor(Ray{result.Point, direction}, depth - 1, world);
+            Ray scattered;
+            Color attenuation;
+
+            if (result.Material->Scatter(ray, result, attenuation, scattered)) {
+                return attenuation * GetRayColor(scattered, depth - 1, world);
+            }
+
+            return Color{};
         }
 
         Vector3 unitDirection = UnitVector(ray.Direction());

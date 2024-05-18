@@ -1,8 +1,8 @@
 #ifndef RAYTRACER_HITRESULT_H
 #define RAYTRACER_HITRESULT_H
 
-#include "Maths/Vector3.h"
-#include "Maths/Ray.h"
+#include "RayTracerPCH.h"
+#include "Materials/IMaterial.h"
 
 namespace RayTracer {
 

@@ -2,14 +2,15 @@
 #define RAYTRACER_SPHERE_H
 
 #include "Hittable.h"
+#include "Materials/IMaterial.h"
 
 namespace RayTracer {
 
     class Sphere : public Hittable {
     public:
-        Sphere(const Point3& center, float radius);
+        Sphere(const Point3& center, float radius, std::shared_ptr<IMaterial> material);
 
-        bool Hit(const RayTracer::Ray& ray, Interval interval, RayTracer::HitResult& result) const override;
+        bool Hit(const Ray& ray, Interval interval, HitResult& result) const override;
 
     private:
         const Point3 m_center;

@@ -1,8 +1,10 @@
 #include <cmath>
+#include <utility>
 #include "Sphere.h"
 
 namespace RayTracer {
-    Sphere::Sphere(const Point3& center, float radius) : m_center{center}, m_radius{std::fmax(0.0f, radius)} {}
+    Sphere::Sphere(const Point3& center, float radius, std::shared_ptr<IMaterial> material)
+            : m_center{center}, m_radius{std::fmax(0.0f, radius)}, m_material(std::move(material)) {}
 
     bool Sphere::Hit(const Ray& ray, Interval interval, HitResult& result) const {
         Vector3 origin = m_center - ray.Origin();
