@@ -29,6 +29,14 @@ namespace RayTracer {
         inline static float RandomFloat(float min, float max) {
             return min + (max - min) * RandomFloat();
         }
+
+        inline static float LinearToGamma(float linearComponent) {
+            if (linearComponent > 0) {
+                return std::sqrt(linearComponent);
+            }
+
+            return 0;
+        }
     };
 
 }

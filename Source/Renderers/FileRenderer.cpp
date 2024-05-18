@@ -13,6 +13,12 @@ namespace RayTracer {
         float green = pixel.Y();
         float blue = pixel.Z();
 
+        // Convert from linear space to gamma space.
+        red = Utilities::LinearToGamma(red);
+        green = Utilities::LinearToGamma(green);
+        blue = Utilities::LinearToGamma(blue);
+
+        // Convert from [0,1] range to [0,255] range.
         static const Interval intensity{0.000f, 0.999f};
         int redAsRGB = Utilities::ConvertToRGB(intensity.Clamp(red));
         int greenAsRGB = Utilities::ConvertToRGB(intensity.Clamp(green));

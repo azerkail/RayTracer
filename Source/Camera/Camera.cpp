@@ -80,8 +80,8 @@ namespace RayTracer {
         HitResult result;
 
         if (world.Hit(ray, Interval{0.001f, Constants::Infinity}, result)) {
-            auto direction = RandomOnHemisphere(result.Normal);
-            return 0.5 * GetRayColor(Ray{result.Point, direction}, depth - 1, world);
+            auto direction = result.Normal + RandomUnitVector();
+            return 0.1f * GetRayColor(Ray{result.Point, direction}, depth - 1, world);
         }
 
         Vector3 unitDirection = UnitVector(ray.Direction());
