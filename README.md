@@ -5,13 +5,13 @@ Study and implementation of a simple ray tracer using the [Ray Tracing In One We
 All of the mathematical formulas were taken from the book, however, coding structure, style, naming conventions and most design
 decisions were altered to fit what I believe is the best C++ I can write.
 
-![https://github.com/azerkail/RayTracer/blob/main/Renders/2024-05-19.ppm]("Final Render")
+![Final Render](https://github.com/azerkail/RayTracer/blob/main/Renders/2024-05-19.ppm)
 
 # Roadmap
 
 The following roadmap details the direction with which I'm planning to take this project:
-1. [🛠️ In Progress] Follow `Ray Tracing In One Weekend`
-2. Follow `Ray Tracing The Next Week`
+1. [✅ Complete] Follow `Ray Tracing In One Weekend`
+2. [🛠️ In Progress] Follow `Ray Tracing The Next Week`
 3. Follow `Ray Tracing The Rest Of Your Life`
 4. Integrate [BGFX](https://github.com/bkaradzic/bgfx)
 5. Integrate Vulkan
