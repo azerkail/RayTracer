@@ -7,12 +7,13 @@ namespace RayTracer {
 
     class Metal : public IMaterial {
     public:
-        explicit Metal(const Color& albedo);
+        explicit Metal(const Color& albedo, float fuzz);
 
         [[nodiscard]] bool Scatter(const Ray& rayIn, const HitResult& result, Color& attenuation,
                                    Ray& scattered) const override;
     private:
         Color m_albedo;
+        float m_fuzz;
     };
 
 }
