@@ -44,7 +44,7 @@ namespace RayTracer {
                         sphere = std::make_shared<Sphere>(center, 0.2f, sphereMaterial);
                     } else {
                         // Glass.
-                        auto sphereMaterial = std::make_shared<Dielectric>(0.2);
+                        auto sphereMaterial = std::make_shared<Dielectric>(1.5);
                         sphere = std::make_shared<Sphere>(center, 0.2f, sphereMaterial);
                     }
 
@@ -54,7 +54,7 @@ namespace RayTracer {
         }
 
         auto largeSphere1Material = std::make_shared<Dielectric>(1.5);
-        world.Add(std::make_shared<Sphere>(Point3{0, 0, 1}, 1.0, largeSphere1Material));
+        world.Add(std::make_shared<Sphere>(Point3{0, 1, 0}, 1.0, largeSphere1Material));
 
         auto largeSphere2Material = std::make_shared<Lambertian>(Color{0.4f, 0.2f, 0.1f});
         world.Add(std::make_shared<Sphere>(Point3{-4, 1, 0}, 1.0, largeSphere2Material));
