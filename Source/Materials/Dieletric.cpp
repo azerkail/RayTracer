@@ -12,7 +12,7 @@ namespace RayTracer {
         bool cannotRefract = refractionIndex * sinTheta > 1.0f;
 
         Vector3 direction;
-        if (cannotRefract) {
+        if (cannotRefract || Reflectance(costTheta, refractionIndex) > Utilities::RandomFloat()) {
             direction = Reflect(unitDirection, result.Normal);
         } else {
             direction = Refract(unitDirection, result.Normal, refractionIndex);
@@ -22,5 +22,11 @@ namespace RayTracer {
         attenuation = {1.0f, 1.0f, 1.0f};
 
         return true;
+    }
+
+    float Dielectric::Reflectance(float cosine, float refractionIndex) {
+        float r0 = (1 - refractionIndex) / (1 + refractionIndex);
+        r0 = r0 * r0;
+        return r0 + (1.0f - r0) * std::pow((1.0f - cosine), 5.0f);
     }
 }

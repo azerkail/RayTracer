@@ -5,12 +5,14 @@ namespace RayTracer {
 
     class Dielectric : public IMaterial {
     public:
-        Dielectric(float refractionIndex);
+        explicit Dielectric(float refractionIndex);
 
         [[nodiscard]] bool Scatter(const Ray& rayIn, const HitResult& result, Color& attenuation,
                                    Ray& scattered) const override;
     private:
         float m_refractionIndex;
+
+        static float Reflectance(float cosine, float refractionIndex);
     };
 
 }
