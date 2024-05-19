@@ -44,8 +44,9 @@ namespace RayTracer {
     Vector3 UnitVector(const Vector3& vector);
     Vector3 Random();
     Vector3 Random(float min, float max);
-    Vector3 RandomUnitSphere();
-    Vector3 RandomUnitVector();
+    Vector3 RandomInUnitSphere();
+    Vector3 RandomInUnitVector();
+    Vector3 RandomInUnitDisk();
     Vector3 RandomOnHemisphere(const Vector3& normal);
     Vector3 Reflect(const Vector3& vector, const Vector3& normal);
     Vector3 Refract(const Vector3& uv, const Vector3& normal, float etaIOverEtaT);

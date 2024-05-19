@@ -12,22 +12,31 @@ namespace RayTracer {
         auto imageHeightAsFloat = static_cast<float>(m_imageHeight);
 
         m_pixelSamplesScale = 1.0f / static_cast<float>(SamplesPerPixel);
+        m_center = LookFrom;
 
         // Viewport dimensions.
-        float focalLength = 1.0;
         float theta = Utilities::DegreesToRadians(VerticalFOV);
         float height = std::tan(theta / 2);
-        float viewportHeight = 2.0f * height * focalLength;
+        float viewportHeight = 2.0f * height * FocusDistance;
         float viewportWidth = viewportHeight * (imageWidthAsFloat / imageHeightAsFloat);
 
-        Vector3 viewportU{viewportWidth, 0, 0};
-        Vector3 viewportV{0, -viewportHeight, 0};
+        // Calculate unit basis vectors for the camera coordinate frame.
+        m_w = UnitVector(LookFrom - LookAt);
+        m_u = UnitVector(Cross(Up, m_w));
+        m_v = Cross(m_w, m_u);
+
+        Vector3 viewportU = viewportWidth * m_u;
+        Vector3 viewportV = viewportHeight * -m_v;
 
         m_pixelDeltaU = viewportU / imageWidthAsFloat;
         m_pixelDeltaV = viewportV / imageHeightAsFloat;
 
-        Vector3 viewportUpperLeft = m_center - Vector3{0, 0, focalLength} - viewportU / 2 - viewportV / 2;
+        Vector3 viewportUpperLeft = m_center - (FocusDistance * m_w) - viewportU / 2 - viewportV / 2;
         m_pixelOrigin = viewportUpperLeft + 0.5 * (m_pixelDeltaU + m_pixelDeltaV);
+
+        float defocusRadius = FocusDistance * std::tan(Utilities::DegreesToRadians(DefocusAngle / 2));
+        m_defocusDiskU = m_u * defocusRadius;
+        m_defocusDiskV = m_v * defocusRadius;
 
         // Initialise renderers.
         m_renderer->Initialise(ImageWidth, m_imageHeight);
@@ -67,10 +76,15 @@ namespace RayTracer {
                               + ((columnAsFloat + offset.X()) * m_pixelDeltaU)
                               + ((rowAsFloat + offset.Y()) * m_pixelDeltaV);
 
-        Vector3 rayOrigin = m_center;
+        Vector3 rayOrigin = DefocusAngle <= 0 ? m_center : DefocusDiskSample();
         Vector3 rayDirection = pixelSample - rayOrigin;
 
         return Ray{rayOrigin, rayDirection};
+    }
+
+    Point3 Camera::DefocusDiskSample() const {
+        auto point = RandomInUnitDisk();
+        return m_center + (point[0] * m_defocusDiskU) + (point[1] * m_defocusDiskV);
     }
 
     Color Camera::GetRayColor(const Ray& ray, int depth, const HittableVector& world) { // NOLINT(*-no-recursion)

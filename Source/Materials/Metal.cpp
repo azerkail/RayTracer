@@ -5,7 +5,7 @@ namespace RayTracer {
 
     bool Metal::Scatter(const Ray& rayIn, const HitResult& result, Color& attenuation, Ray& scattered) const {
         Vector3 reflected = Reflect(rayIn.Direction(), result.Normal);
-        reflected = UnitVector(reflected) + (m_fuzz * RandomUnitVector());
+        reflected = UnitVector(reflected) + (m_fuzz * RandomInUnitVector());
 
         scattered = Ray{result.Point, reflected};
         attenuation = m_albedo;

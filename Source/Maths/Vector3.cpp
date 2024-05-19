@@ -107,7 +107,7 @@ namespace RayTracer {
         return {Utilities::RandomFloat(min, max), Utilities::RandomFloat(min, max), Utilities::RandomFloat(min, max)};
     }
 
-    Vector3 RandomUnitSphere() {
+    Vector3 RandomInUnitSphere() {
         while (true) {
             auto point = Random(-1, 1);
             if (point.LengthSquared() < 1) {
@@ -116,12 +116,21 @@ namespace RayTracer {
         }
     }
 
-    Vector3 RandomUnitVector() {
-        return UnitVector(RandomUnitSphere());
+    Vector3 RandomInUnitVector() {
+        return UnitVector(RandomInUnitSphere());
+    }
+
+    Vector3 RandomInUnitDisk() {
+        while (true) {
+            auto point = Vector3{Utilities::RandomFloat(-1, 1), Utilities::RandomFloat(-1, 1), 0};
+            if (point.LengthSquared() < 1) {
+                return point;
+            }
+        }
     }
 
     Vector3 RandomOnHemisphere(const Vector3& normal) {
-        auto unitSphere = RandomUnitVector();
+        auto unitSphere = RandomInUnitVector();
 
         if (Dot(unitSphere, normal) > 0.0f) {
             return unitSphere;
