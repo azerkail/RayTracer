@@ -12,15 +12,15 @@ Current final render:
 # Roadmap
 
 The following roadmap details the direction with which I'm planning to take this project:
-1. [✅ Complete] Follow `Ray Tracing In One Weekend`
-2. [🛠️ In Progress] Follow `Ray Tracing The Next Week`
-3. Follow `Ray Tracing The Rest Of Your Life`
-4. Integrate [BGFX](https://github.com/bkaradzic/bgfx)
-5. Integrate Vulkan
-6. Port ray tracing techniques from the previous CPU approach to parallel GPU
-7. Integrate [Noesis GUI](https://www.noesisengine.com/)
-8. Implement simple UI to configure ray tracer, save snapshots, use CPU or GPU
-9. Windows build support
+1. ✅ Follow `Ray Tracing In One Weekend`
+2. 🛠️ Follow `Ray Tracing The Next Week`
+3. 📝 Follow `Ray Tracing The Rest Of Your Life`
+4. 📝 Integrate [BGFX](https://github.com/bkaradzic/bgfx)
+5. 📝 Integrate Vulkan
+6. 📝 Port ray tracing techniques from the previous CPU approach to parallel GPU
+7. 📝 Integrate [Noesis GUI](https://www.noesisengine.com/)
+8. 📝 Implement simple UI to configure ray tracer, save snapshots, use CPU or GPU
+9. 📝 Windows build support
 
 # Building & Running
 
