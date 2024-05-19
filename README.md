@@ -5,6 +5,8 @@ Study and implementation of a simple ray tracer using the [Ray Tracing In One We
 All of the mathematical formulas were taken from the book, however, coding structure, style, naming conventions and most design
 decisions were altered to fit what I believe is the best C++ I can write.
 
+Current final render:
+
 ![Final Render](https://github.com/azerkail/RayTracer/blob/main/Renders/2024-05-19.png)
 
 # Roadmap
