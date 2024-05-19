@@ -130,7 +130,14 @@ namespace RayTracer {
         return -unitSphere;
     }
 
-    Vector3 Reflect(const Vector3& vector, const Vector3 normal) {
+    Vector3 Reflect(const Vector3& vector, const Vector3& normal) {
         return vector - 2 * Dot(vector, normal) * normal;
+    }
+
+    Vector3 Refract(const Vector3& uv, const Vector3& normal, float etaIOverEtaT) {
+        float cosTheta = std::fmin(Dot(-uv, normal), 1.0f);
+        Vector3 rOutPerpendicular = etaIOverEtaT * (uv + cosTheta * normal);
+        Vector3 rOutParallel = -std::sqrt(std::fabs(1.0f - rOutPerpendicular.LengthSquared())) * normal;
+        return rOutPerpendicular + rOutParallel;
     }
 }

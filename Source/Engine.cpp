@@ -4,6 +4,7 @@
 #include "Objects/Sphere.h"
 #include "Materials/Lambertian.h"
 #include "Materials/Metal.h"
+#include "Materials/Dieletric.h"
 
 namespace RayTracer {
     void Engine::Trace() {
@@ -12,7 +13,7 @@ namespace RayTracer {
 
         auto materialGround = std::make_shared<Lambertian>(Color{0.8f, 0.8f, 0.0f});
         auto materialCenter = std::make_shared<Lambertian>(Color{0.1f, 0.2f, 0.5f});
-        auto materialLeft = std::make_shared<Metal>(Color{0.8f, 0.8f, 0.8f});
+        auto materialLeft = std::make_shared<Dielectric>(1.0f / 1.33f);
         auto materialRight = std::make_shared<Metal>(Color{0.8f, 0.6f, 0.2f});
 
         world.Add(std::make_shared<Sphere>(Point3{0.0f, -100.5f, -1.0f}, 100.0f, materialGround));
