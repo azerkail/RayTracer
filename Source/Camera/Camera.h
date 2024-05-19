@@ -10,6 +10,7 @@ namespace RayTracer {
         explicit Camera(std::unique_ptr<IRenderer> renderer);
 
         float AspectRatio = 1.0;
+        float VerticalFOV = 90;
         int ImageWidth = 100;
         int SamplesPerPixel = 10;
         int MaxDepth = 10;

@@ -15,7 +15,9 @@ namespace RayTracer {
 
         // Viewport dimensions.
         float focalLength = 1.0;
-        float viewportHeight = 2.0;
+        float theta = Utilities::DegreesToRadians(VerticalFOV);
+        float height = std::tan(theta / 2);
+        float viewportHeight = 2.0f * height * focalLength;
         float viewportWidth = viewportHeight * (imageWidthAsFloat / imageHeightAsFloat);
 
         Vector3 viewportU{viewportWidth, 0, 0};
