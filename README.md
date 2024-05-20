@@ -7,7 +7,7 @@ decisions were altered to fit what I believe is the best C++ I can write.
 
 Current final render:
 
-![Final Render](https://github.com/azerkail/RayTracer/blob/main/Renders/2024-05-19.png)
+![Final Render](https://github.com/azerkail/RayTracer/blob/main/Renders/2024-05-20.png)
 
 # Roadmap
 
