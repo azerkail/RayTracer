@@ -9,7 +9,7 @@ namespace RayTracer
     {
     }
 
-    Sphere::Sphere(const Point3& center1, const Point3 center2, const float radius,
+    Sphere::Sphere(const Point3& center1, const Point3& center2, const float radius,
                    std::shared_ptr<IMaterial> material) : m_center{center1}, m_radius{std::fmax(0.0f, radius)},
                                                           m_material{std::move(material)}, m_isMoving{true}
     {
@@ -53,7 +53,7 @@ namespace RayTracer
         return true;
     }
 
-    Point3 Sphere::SphereCenter(const double time) const
+    Point3 Sphere::SphereCenter(const float time) const
     {
         return m_center + time * m_centerVector;
     }

@@ -3,7 +3,6 @@
 
 #include <random>
 #include "Objects/Hittable.h"
-#include "Collections/HittableVector.h"
 
 namespace RayTracer {
 

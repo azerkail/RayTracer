@@ -68,6 +68,7 @@ target_precompile_headers(RayTracer PRIVATE Source/RayTracerPCH.h)
 # spdlog
 ## Include spdlog header files.
 target_include_directories(RayTracer PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Submodules/spdlog/include)
+# End spdlog
 
 # Include sub-directories to be able to include them directly.
 target_include_directories(RayTracer PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/Source)

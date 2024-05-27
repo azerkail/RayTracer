@@ -1,8 +1,6 @@
 #ifndef RAYTRACER_IMATERIAL_H
 #define RAYTRACER_IMATERIAL_H
 
-#include "RayTracerPCH.h"
-
 namespace RayTracer {
 
     // Prevents circular dependency with HitResult.
@@ -18,4 +16,4 @@ namespace RayTracer {
 
 }
 
-#endif //RAYTRACER_IMATERIAL_H
+#endif // RAYTRACER_IMATERIAL_H

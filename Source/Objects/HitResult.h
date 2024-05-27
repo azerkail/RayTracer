@@ -1,7 +1,6 @@
 #ifndef RAYTRACER_HITRESULT_H
 #define RAYTRACER_HITRESULT_H
 
-#include "RayTracerPCH.h"
 #include "Materials/IMaterial.h"
 
 namespace RayTracer {

@@ -10,7 +10,7 @@ namespace RayTracer
     {
     public:
         Sphere(const Point3& center, float radius, std::shared_ptr<IMaterial> material);
-        Sphere(const Point3& center1, const Point3 center2, float radius, std::shared_ptr<IMaterial> material);
+        Sphere(const Point3& center1, const Point3& center2, float radius, std::shared_ptr<IMaterial> material);
 
         bool Hit(const Ray& ray, Interval interval, HitResult& result) const override;
 
@@ -21,7 +21,7 @@ namespace RayTracer
         bool m_isMoving;
         Vector3 m_centerVector;
 
-        [[nodiscard]] Point3 SphereCenter(double time) const;
+        [[nodiscard]] Point3 SphereCenter(float time) const;
     };
 }
 
