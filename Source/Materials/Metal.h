@@ -5,7 +5,7 @@
 
 namespace RayTracer {
 
-    class Metal : public IMaterial {
+    class Metal final : public IMaterial {
     public:
         explicit Metal(const Color& albedo, float fuzz);
 

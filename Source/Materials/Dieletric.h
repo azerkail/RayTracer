@@ -3,7 +3,7 @@
 
 namespace RayTracer {
 
-    class Dielectric : public IMaterial {
+    class Dielectric final : public IMaterial {
     public:
         explicit Dielectric(float refractionIndex);
 

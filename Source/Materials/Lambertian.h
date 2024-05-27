@@ -5,7 +5,7 @@
 
 namespace RayTracer {
 
-    class Lambertian : public IMaterial {
+    class Lambertian final : public IMaterial {
     public:
         explicit Lambertian(const Color& albedo);
 

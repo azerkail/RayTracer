@@ -12,11 +12,11 @@ namespace RayTracer {
         // Disallow creating this class as it should only hold public static methods.
         Utilities() = delete;
 
-        inline static int ConvertToRGB(float value) {
+        inline static int ConvertToRGB(const float value) {
             return static_cast<int>(Constants::RGBConversionValue * value);
         }
 
-        inline static float DegreesToRadians(float degrees) {
+        inline static float DegreesToRadians(const float degrees) {
             return degrees * Constants::Pi / 180.0f;
         }
 
@@ -26,11 +26,11 @@ namespace RayTracer {
             return distribution(generator);
         }
 
-        inline static float RandomFloat(float min, float max) {
+        inline static float RandomFloat(const float min, const float max) {
             return min + (max - min) * RandomFloat();
         }
 
-        inline static float LinearToGamma(float linearComponent) {
+        inline static float LinearToGamma(const float linearComponent) {
             if (linearComponent > 0) {
                 return std::sqrt(linearComponent);
             }

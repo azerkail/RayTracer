@@ -3,7 +3,7 @@
 namespace RayTracer {
     Interval::Interval() : m_min(+Constants::Infinity), m_max(-Constants::Infinity) {}
 
-    Interval::Interval(float min, float max) : m_min(min), m_max(max) {}
+    Interval::Interval(const float min, const float max) : m_min(min), m_max(max) {}
 
     float Interval::GetMin() const {
         return m_min;
@@ -17,7 +17,7 @@ namespace RayTracer {
         return m_max - m_min;
     }
 
-    float Interval::Clamp(float value) const {
+    float Interval::Clamp(const float value) const {
         if (value < m_min) {
             return m_min;
         }
@@ -29,11 +29,11 @@ namespace RayTracer {
         return value;
     }
 
-    bool Interval::Contains(float value) const {
+    bool Interval::Contains(const float value) const {
         return m_min <= value && value <= m_max;
     }
 
-    bool Interval::Surrounds(float value) const {
+    bool Interval::Surrounds(const float value) const {
         return m_min < value && value < m_max;
     }
 }

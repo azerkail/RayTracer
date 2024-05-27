@@ -4,7 +4,7 @@
 namespace RayTracer {
     Vector3::Vector3() : m_values{0, 0, 0} {}
 
-    Vector3::Vector3(float x, float y, float z) : m_values{x, y, z} {}
+    Vector3::Vector3(const float x, const float y, const float z) : m_values{x, y, z} {}
 
     float Vector3::X() const { return m_values[0]; }
 
@@ -23,22 +23,22 @@ namespace RayTracer {
         return *this;
     }
 
-    Vector3& Vector3::operator*=(float value) {
+    Vector3& Vector3::operator*=(const float value) {
         m_values[0] *= value;
         m_values[1] *= value;
         m_values[2] *= value;
         return *this;
     }
 
-    Vector3& Vector3::operator/=(float value) {
+    Vector3& Vector3::operator/=(const float value) {
         return *this *= 1 / value;
     }
 
-    float Vector3::operator[](int index) const {
+    float Vector3::operator[](const int index) const {
         return m_values[index];
     }
 
-    float& Vector3::operator[](int index) {
+    float& Vector3::operator[](const int index) {
         return m_values[index];
     }
 
@@ -51,7 +51,7 @@ namespace RayTracer {
     }
 
     bool Vector3::NearZero() const {
-        auto nearZero = 1e-8f;
+        const auto nearZero = 1e-8f;
         return std::fabs(m_values[0]) < nearZero && std::fabs(m_values[1]) < nearZero && std::fabs(m_values[2]) < 2;
     }
 
@@ -71,15 +71,15 @@ namespace RayTracer {
         return {u.X() * v.X(), u.Y() * v.Y(), u.Z() * v.Z()};
     }
 
-    Vector3 operator*(const Vector3& vector, float value) {
+    Vector3 operator*(const Vector3& vector, const float value) {
         return {vector.X() * value, vector.Y() * value, vector.Z() * value};
     }
 
-    Vector3 operator*(float value, const Vector3& vector) {
+    Vector3 operator*(const float value, const Vector3& vector) {
         return vector * value;
     }
 
-    Vector3 operator/(const Vector3& vector, float value) {
+    Vector3 operator/(const Vector3& vector, const float value) {
         return vector * (1 / value);
     }
 
@@ -103,7 +103,7 @@ namespace RayTracer {
         return {Utilities::RandomFloat(), Utilities::RandomFloat(), Utilities::RandomFloat()};
     }
 
-    Vector3 Random(float min, float max) {
+    Vector3 Random(const float min, const float max) {
         return {Utilities::RandomFloat(min, max), Utilities::RandomFloat(min, max), Utilities::RandomFloat(min, max)};
     }
 
@@ -130,7 +130,7 @@ namespace RayTracer {
     }
 
     Vector3 RandomOnHemisphere(const Vector3& normal) {
-        auto unitSphere = RandomInUnitVector();
+        const auto unitSphere = RandomInUnitVector();
 
         if (Dot(unitSphere, normal) > 0.0f) {
             return unitSphere;
@@ -143,10 +143,10 @@ namespace RayTracer {
         return vector - 2 * Dot(vector, normal) * normal;
     }
 
-    Vector3 Refract(const Vector3& uv, const Vector3& normal, float etaIOverEtaT) {
-        float cosTheta = std::fmin(Dot(-uv, normal), 1.0f);
-        Vector3 rOutPerpendicular = etaIOverEtaT * (uv + cosTheta * normal);
-        Vector3 rOutParallel = -std::sqrt(std::fabs(1.0f - rOutPerpendicular.LengthSquared())) * normal;
+    Vector3 Refract(const Vector3& uv, const Vector3& normal, const float etaIOverEtaT) {
+        const float cosTheta = std::fmin(Dot(-uv, normal), 1.0f);
+        const Vector3 rOutPerpendicular = etaIOverEtaT * (uv + cosTheta * normal);
+        const Vector3 rOutParallel = -std::sqrt(std::fabs(1.0f - rOutPerpendicular.LengthSquared())) * normal;
         return rOutPerpendicular + rOutParallel;
     }
 }

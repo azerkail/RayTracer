@@ -6,7 +6,7 @@
 
 namespace RayTracer {
 
-    class FileRenderer : public IRenderer {
+    class FileRenderer final : public IRenderer {
     public:
         void Initialise(int imageWidth, int imageHeight) override;
         void Render(const Color& pixel) override;

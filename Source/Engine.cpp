@@ -19,16 +19,16 @@ namespace RayTracer {
         auto groundMaterial = std::make_shared<Lambertian>(Color{0.5f, 0.5f, 0.5f});
         world.Add(std::make_shared<Sphere>(Point3{0, -1000.0f, 0}, 1000, groundMaterial));
 
-        auto offsetPoint = Point3{4, 0.2f, 0};
+        const auto offsetPoint = Point3{4, 0.2f, 0};
         for (int a = -11; a < 11; a++) {
             for (int b = -11; b < 11; b++) {
-                auto aAsFloat = static_cast<float>(a);
-                auto bAsFloat = static_cast<float>(b);
+                const auto aAsFloat = static_cast<float>(a);
+                const auto bAsFloat = static_cast<float>(b);
                 Point3 center{aAsFloat + 0.9f * Utilities::RandomFloat(), 0.2f,
                               bAsFloat + 0.9f * Utilities::RandomFloat()};
 
                 if ((center - offsetPoint).Length() > 0.9) {
-                    float chooseMaterial = Utilities::RandomFloat();
+                    const float chooseMaterial = Utilities::RandomFloat();
                     std::shared_ptr<Sphere> sphere;
 
                     if (chooseMaterial < 0.8) {

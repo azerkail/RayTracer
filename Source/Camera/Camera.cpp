@@ -8,33 +8,33 @@ namespace RayTracer {
         m_imageHeight = static_cast<int>(static_cast<float>(ImageWidth) / AspectRatio);
         m_imageHeight = m_imageHeight < 1 ? 1 : m_imageHeight;
 
-        auto imageWidthAsFloat = static_cast<float>(ImageWidth);
-        auto imageHeightAsFloat = static_cast<float>(m_imageHeight);
+        const auto imageWidthAsFloat = static_cast<float>(ImageWidth);
+        const auto imageHeightAsFloat = static_cast<float>(m_imageHeight);
 
         m_pixelSamplesScale = 1.0f / static_cast<float>(SamplesPerPixel);
         m_center = LookFrom;
 
         // Viewport dimensions.
-        float theta = Utilities::DegreesToRadians(VerticalFOV);
-        float height = std::tan(theta / 2);
-        float viewportHeight = 2.0f * height * FocusDistance;
-        float viewportWidth = viewportHeight * (imageWidthAsFloat / imageHeightAsFloat);
+        const float theta = Utilities::DegreesToRadians(VerticalFOV);
+        const float height = std::tan(theta / 2);
+        const float viewportHeight = 2.0f * height * FocusDistance;
+        const float viewportWidth = viewportHeight * (imageWidthAsFloat / imageHeightAsFloat);
 
         // Calculate unit basis vectors for the camera coordinate frame.
         m_w = UnitVector(LookFrom - LookAt);
         m_u = UnitVector(Cross(Up, m_w));
         m_v = Cross(m_w, m_u);
 
-        Vector3 viewportU = viewportWidth * m_u;
-        Vector3 viewportV = viewportHeight * -m_v;
+        const Vector3 viewportU = viewportWidth * m_u;
+        const Vector3 viewportV = viewportHeight * -m_v;
 
         m_pixelDeltaU = viewportU / imageWidthAsFloat;
         m_pixelDeltaV = viewportV / imageHeightAsFloat;
 
-        Vector3 viewportUpperLeft = m_center - (FocusDistance * m_w) - viewportU / 2 - viewportV / 2;
+        const Vector3 viewportUpperLeft = m_center - FocusDistance * m_w - viewportU / 2 - viewportV / 2;
         m_pixelOrigin = viewportUpperLeft + 0.5 * (m_pixelDeltaU + m_pixelDeltaV);
 
-        float defocusRadius = FocusDistance * std::tan(Utilities::DegreesToRadians(DefocusAngle / 2));
+        const float defocusRadius = FocusDistance * std::tan(Utilities::DegreesToRadians(DefocusAngle / 2));
         m_defocusDiskU = m_u * defocusRadius;
         m_defocusDiskV = m_v * defocusRadius;
 
@@ -67,27 +67,28 @@ namespace RayTracer {
         return Vector3{Utilities::RandomFloat() - 0.5f, Utilities::RandomFloat() - 0.5f, 0};
     }
 
-    Ray Camera::GetRay(int column, int row) const {
-        auto columnAsFloat = static_cast<float>(column);
-        auto rowAsFloat = static_cast<float>(row);
+    Ray Camera::GetRay(const int column, const int row) const {
+        const auto columnAsFloat = static_cast<float>(column);
+        const auto rowAsFloat = static_cast<float>(row);
 
-        Vector3 offset = SampleSquare();
-        Vector3 pixelSample = m_pixelOrigin
-                              + ((columnAsFloat + offset.X()) * m_pixelDeltaU)
-                              + ((rowAsFloat + offset.Y()) * m_pixelDeltaV);
+        const Vector3 offset = SampleSquare();
+        const Vector3 pixelSample = m_pixelOrigin
+                              + (columnAsFloat + offset.X()) * m_pixelDeltaU
+                              + (rowAsFloat + offset.Y()) * m_pixelDeltaV;
 
-        Vector3 rayOrigin = DefocusAngle <= 0 ? m_center : DefocusDiskSample();
-        Vector3 rayDirection = pixelSample - rayOrigin;
+        const Vector3 rayOrigin = DefocusAngle <= 0 ? m_center : DefocusDiskSample();
+        const Vector3 rayDirection = pixelSample - rayOrigin;
+        const float rayTime = Utilities::RandomFloat();
 
-        return Ray{rayOrigin, rayDirection};
+        return Ray{rayOrigin, rayDirection, rayTime};
     }
 
     Point3 Camera::DefocusDiskSample() const {
         auto point = RandomInUnitDisk();
-        return m_center + (point[0] * m_defocusDiskU) + (point[1] * m_defocusDiskV);
+        return m_center + point[0] * m_defocusDiskU + point[1] * m_defocusDiskV;
     }
 
-    Color Camera::GetRayColor(const Ray& ray, int depth, const HittableVector& world) { // NOLINT(*-no-recursion)
+    Color Camera::GetRayColor(const Ray& ray, const int depth, const HittableVector& world) { // NOLINT(*-no-recursion)
         if (depth <= 0) {
             return Color{};
         }
@@ -105,8 +106,8 @@ namespace RayTracer {
             return Color{};
         }
 
-        Vector3 unitDirection = UnitVector(ray.Direction());
-        float alpha = 0.5f * (unitDirection.Y() + 1.0f);
+        const Vector3 unitDirection = UnitVector(ray.Direction());
+        const float alpha = 0.5f * (unitDirection.Y() + 1.0f);
 
         return (1 - alpha) * Color{1, 1, 1} + alpha * Color{0.5f, 0.7f, 1};
     }

@@ -13,7 +13,7 @@ namespace RayTracer {
         m_objects.push_back(object);
     }
 
-    bool HittableVector::Hit(const Ray& ray, Interval interval, HitResult& result) const {
+    bool HittableVector::Hit(const Ray& ray, const Interval interval, HitResult& result) const {
         HitResult temporaryResult;
         bool hitAnything = false;
         auto closesSoFar = interval.GetMax();
