@@ -1,5 +1,5 @@
 # Specify the CMake minimum required version.
-cmake_minimum_required(VERSION 3.29)
+cmake_minimum_required(VERSION 3.28.1)
 
 # Create a basic project named "RayTracer".
 project(RayTracer VERSION 0.1.0 LANGUAGES CXX)
