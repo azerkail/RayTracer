@@ -3,15 +3,17 @@
 
 #include "Maths/Ray.h"
 #include "HitResult.h"
+#include "Maths/AABB.h"
 
-namespace RayTracer {
-
-    class Hittable {
+namespace RayTracer
+{
+    class Hittable
+    {
     public:
         virtual ~Hittable() = default;
         virtual bool Hit(const Ray& ray, Interval interval, HitResult& result) const = 0;
+        [[nodiscard]] virtual AABB BoundingBox() const = 0;
     };
-
 }
 
 #endif //RAYTRACER_HITTABLE_H

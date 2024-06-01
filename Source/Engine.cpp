@@ -1,4 +1,6 @@
 #include "Engine.h"
+
+#include "BVH/BVHNode.h"
 #include "Renderers/FileRenderer.h"
 #include "Objects/Sphere.h"
 #include "Materials/Lambertian.h"
@@ -75,6 +77,8 @@ namespace RayTracer
 
         auto largeSphere3Material = std::make_shared<Metal>(Color{0.7f, 0.6f, 0.5f}, 0.0f);
         world.Add(std::make_shared<Sphere>(Point3{4, 1, 0}, 1.0, largeSphere3Material));
+
+        world = HittableVector{std::make_shared<BVHNode>(world)};
 
         return world;
     }

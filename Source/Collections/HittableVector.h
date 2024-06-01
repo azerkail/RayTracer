@@ -5,9 +5,10 @@
 #include <memory>
 #include "Objects/Hittable.h"
 
-namespace RayTracer {
-
-    class HittableVector {
+namespace RayTracer
+{
+    class HittableVector
+    {
     public:
         HittableVector() = default;
         explicit HittableVector(const std::shared_ptr<Hittable>& object);
@@ -17,10 +18,13 @@ namespace RayTracer {
 
         bool Hit(const Ray& ray, Interval interval, HitResult& result) const;
 
+        [[nodiscard]] const std::vector<std::shared_ptr<Hittable>>& GetObjects() const;
+        [[nodiscard]] AABB BoundingBox() const;
+
     private:
         std::vector<std::shared_ptr<Hittable>> m_objects;
+        AABB m_boundingBox;
     };
-
 }
 
 #endif //RAYTRACER_HITTABLEVECTOR_H

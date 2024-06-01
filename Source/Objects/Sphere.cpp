@@ -7,12 +7,19 @@ namespace RayTracer
     Sphere::Sphere(const Point3& center, const float radius, std::shared_ptr<IMaterial> material)
         : m_center{center}, m_radius{std::fmax(0.0f, radius)}, m_material{std::move(material)}, m_isMoving(false)
     {
+        const Vector3 radiusVector{radius, radius, radius};
+        m_boundingBox = AABB{center - radiusVector, center + radiusVector};
     }
 
     Sphere::Sphere(const Point3& center1, const Point3& center2, const float radius,
                    std::shared_ptr<IMaterial> material) : m_center{center1}, m_radius{std::fmax(0.0f, radius)},
                                                           m_material{std::move(material)}, m_isMoving{true}
     {
+        const Vector3 radiusVector{radius, radius, radius};
+        AABB boxAtStart{center1 - radiusVector, center1 + radiusVector};
+        AABB boxAtEnd{center2 - radiusVector, center2 - radiusVector};
+
+        m_boundingBox = AABB{boxAtStart, boxAtEnd};
         m_centerVector = center2 - m_center;
     }
 
@@ -51,6 +58,11 @@ namespace RayTracer
         result.SetFaceNormal(ray, outwardNormal);
 
         return true;
+    }
+
+    AABB Sphere::BoundingBox() const
+    {
+        return m_boundingBox;
     }
 
     Point3 Sphere::SphereCenter(const float time) const
