@@ -18,7 +18,7 @@ namespace RayTracer
 
         bool Hit(const Ray& ray, Interval interval, HitResult& result) const;
 
-        [[nodiscard]] const std::vector<std::shared_ptr<Hittable>>& GetObjects() const;
+        [[nodiscard]] std::vector<std::shared_ptr<Hittable>>& GetObjects();
         [[nodiscard]] AABB BoundingBox() const;
 
     private:

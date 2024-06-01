@@ -6,8 +6,8 @@ namespace RayTracer
     class BVHNode final : public Hittable
     {
     public:
-        explicit BVHNode(const HittableVector& vector);
-        BVHNode(const std::vector<std::shared_ptr<Hittable>>& objects, size_t start, size_t end);
+        explicit BVHNode(HittableVector& vector);
+        BVHNode(std::vector<std::shared_ptr<Hittable>>& objects, size_t start, size_t end);
 
         bool Hit(const Ray& ray, Interval interval, HitResult& result) const override;
         [[nodiscard]] AABB BoundingBox() const override;

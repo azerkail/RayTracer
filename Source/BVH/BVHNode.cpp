@@ -2,14 +2,14 @@
 
 namespace RayTracer
 {
-    BVHNode::BVHNode(const HittableVector& vector) : BVHNode(vector.GetObjects(), 0, vector.GetObjects().size())
+    BVHNode::BVHNode(HittableVector& vector) : BVHNode(vector.GetObjects(), 0, vector.GetObjects().size())
     {
     }
 
-    BVHNode::BVHNode(const std::vector<std::shared_ptr<Hittable>>& objects, const size_t start, const size_t end)
+    BVHNode::BVHNode(std::vector<std::shared_ptr<Hittable>>& objects, const size_t start, const size_t end)
     {
         const int axis = Utilities::RandomInt(0, 2);
-        auto comparer = axis == 0 ? BoxXCompare : axis == 1 ? boxYCompare : boxZCompare;
+        const auto comparer = axis == 0 ? BoxXCompare : axis == 1 ? BoxYCompare : BoxZCompare;
         const size_t objectSpan = end - start;
 
         if (objectSpan == 1)
@@ -23,7 +23,9 @@ namespace RayTracer
         }
         else
         {
-            std::sort(objects.begin() + start, objects.begin() + end, comparer);
+            const auto startValid = static_cast<long long int>(start);
+            const auto endValid = static_cast<long long int>(end);
+            std::sort(objects.begin() + startValid, objects.begin() + endValid, comparer);
             auto mid = start + objectSpan / 2;
 
             m_left = std::make_shared<BVHNode>(objects, start, mid);
