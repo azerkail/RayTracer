@@ -80,4 +80,14 @@ namespace RayTracer
 
         return true;
     }
+
+    int AABB::LongestAxis() const
+    {
+        if (m_x.Size() > m_y.Size())
+        {
+            return m_x.Size() > m_z.Size() ? 0 : 2;
+        }
+
+        return m_y.Size() > m_z.Size() ? 1 : 2;
+    }
 } // RayTracer

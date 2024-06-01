@@ -8,7 +8,14 @@ namespace RayTracer
 
     BVHNode::BVHNode(std::vector<std::shared_ptr<Hittable>>& objects, const size_t start, const size_t end)
     {
-        const int axis = Utilities::RandomInt(0, 2);
+        m_boundingBox = Constants::AABBEmpty;
+
+        for (size_t objectIndex = start; objectIndex < end; objectIndex++)
+        {
+            m_boundingBox = AABB{m_boundingBox, objects[objectIndex]->BoundingBox()};
+        }
+
+        const int axis = m_boundingBox.LongestAxis();
         const auto comparer = axis == 0 ? BoxXCompare : axis == 1 ? BoxYCompare : BoxZCompare;
         const size_t objectSpan = end - start;
 
@@ -31,8 +38,6 @@ namespace RayTracer
             m_left = std::make_shared<BVHNode>(objects, start, mid);
             m_right = std::make_shared<BVHNode>(objects, mid, end);
         }
-
-        m_boundingBox = AABB{m_left->BoundingBox(), m_right->BoundingBox()};
     }
 
     bool BVHNode::Hit(const Ray& ray, const Interval interval, HitResult& result) const

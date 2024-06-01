@@ -2,7 +2,6 @@
 #define RAYTRACER_UTILITIES_H
 
 #include <random>
-#include "Objects/Hittable.h"
 
 namespace RayTracer
 {

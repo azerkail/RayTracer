@@ -1,6 +1,10 @@
 #ifndef AABB_H
 #define AABB_H
 
+#include "Interval.h"
+#include "Ray.h"
+#include "Vector3.h"
+
 namespace RayTracer
 {
     class AABB
@@ -13,6 +17,7 @@ namespace RayTracer
 
         [[nodiscard]] const Interval& AxisInterval(int number) const;
         [[nodiscard]] bool Hit(const Ray& ray, Interval rayInterval) const;
+        [[nodiscard]] int LongestAxis() const;
 
     private:
         Interval m_x, m_y, m_z;
