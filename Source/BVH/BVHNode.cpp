@@ -2,7 +2,7 @@
 
 namespace RayTracer
 {
-    BVHNode::BVHNode(HittableVector& vector) : BVHNode(vector.GetObjects(), 0, vector.GetObjects().size())
+    BVHNode::BVHNode(HittableVector vector) : BVHNode(vector.GetObjects(), 0, vector.GetObjects().size())
     {
     }
 
@@ -42,17 +42,12 @@ namespace RayTracer
             return false;
         }
 
-        if (m_left->Hit(ray, interval, result))
-        {
-            return true;
-        }
+        const bool hitLeft = m_left->Hit(ray, interval, result);
+        const bool hitRight = m_right->Hit(ray, Interval{
+                                               interval.GetMin(), hitLeft ? result.Interval : interval.GetMax()
+                                           }, result);
 
-        if (m_right->Hit(ray, Interval{interval.GetMin(), interval.GetMax()}, result))
-        {
-            return true;
-        }
-
-        return false;
+        return hitLeft || hitRight;
     }
 
     AABB BVHNode::BoundingBox() const

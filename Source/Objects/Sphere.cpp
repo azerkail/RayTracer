@@ -8,7 +8,7 @@ namespace RayTracer
         : m_center{center}, m_radius{std::fmax(0.0f, radius)}, m_material{std::move(material)}, m_isMoving(false)
     {
         const Vector3 radiusVector{radius, radius, radius};
-        m_boundingBox = AABB{center - radiusVector, center + radiusVector};
+        m_boundingBox = AABB{m_center - radiusVector, m_center + radiusVector};
     }
 
     Sphere::Sphere(const Point3& center1, const Point3& center2, const float radius,
@@ -16,8 +16,8 @@ namespace RayTracer
                                                           m_material{std::move(material)}, m_isMoving{true}
     {
         const Vector3 radiusVector{radius, radius, radius};
-        AABB boxAtStart{center1 - radiusVector, center1 + radiusVector};
-        AABB boxAtEnd{center2 - radiusVector, center2 - radiusVector};
+        const AABB boxAtStart{center1 - radiusVector, center1 + radiusVector};
+        const AABB boxAtEnd{center2 - radiusVector, center2 + radiusVector};
 
         m_boundingBox = AABB{boxAtStart, boxAtEnd};
         m_centerVector = center2 - m_center;

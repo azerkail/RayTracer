@@ -6,7 +6,7 @@ namespace RayTracer
     class BVHNode final : public Hittable
     {
     public:
-        explicit BVHNode(HittableVector& vector);
+        explicit BVHNode(HittableVector vector);
         BVHNode(std::vector<std::shared_ptr<Hittable>>& objects, size_t start, size_t end);
 
         bool Hit(const Ray& ray, Interval interval, HitResult& result) const override;
