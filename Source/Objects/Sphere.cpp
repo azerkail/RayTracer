@@ -56,6 +56,7 @@ namespace RayTracer
 
         const Vector3 outwardNormal = (result.Point - m_center) / m_radius;
         result.SetFaceNormal(ray, outwardNormal);
+        GetSphereUV(outwardNormal, result.U, result.V);
 
         return true;
     }
@@ -63,6 +64,22 @@ namespace RayTracer
     AABB Sphere::BoundingBox() const
     {
         return m_boundingBox;
+    }
+
+    void Sphere::GetSphereUV(const Point3& point, float& u, float& v)
+    {
+        // p: a given point on the sphere of radius one, centered at the origin.
+        // u: returned value [0,1] of angle around the Y axis from X=-1.
+        // v: returned value [0,1] of angle from Y=-1 to Y=+1.
+        //     <1 0 0> yields <0.50 0.50>       <-1  0  0> yields <0.00 0.50>
+        //     <0 1 0> yields <0.50 1.00>       < 0 -1  0> yields <0.50 0.00>
+        //     <0 0 1> yields <0.25 0.50>       < 0  0 -1> yields <0.75 0.50>
+
+        const float theta = std::acos(-point.Y());
+        const float phi = std::atan2(-point.Z(), point.X()) + Constants::Pi;
+
+        u = phi / (2 * Constants::Pi);
+        v = theta / phi;
     }
 
     Point3 Sphere::SphereCenter(const float time) const

@@ -15,6 +15,8 @@ namespace RayTracer
         bool Hit(const Ray& ray, Interval interval, HitResult& result) const override;
         [[nodiscard]] AABB BoundingBox() const override;
 
+        static void GetSphereUV(const Point3& point, float& u, float& v);
+
     private:
         const Point3 m_center;
         const float m_radius;
