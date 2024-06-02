@@ -15,6 +15,8 @@ namespace RayTracer
         static Camera CreateBouncingSpheresCamera();
         static HittableVector CreateCheckeredSpheres();
         static Camera CreateCheckeredSpheresCamera();
+        static HittableVector CreateEarth();
+        static Camera CreateEarthCamera();
     };
 }
 

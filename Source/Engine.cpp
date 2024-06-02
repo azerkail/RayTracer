@@ -7,6 +7,7 @@
 #include "Materials/Metal.h"
 #include "Materials/Dieletric.h"
 #include "Textures/CheckerTexture.h"
+#include "Textures/ImageTexture.h"
 
 namespace RayTracer
 {
@@ -15,7 +16,7 @@ namespace RayTracer
         std::unique_ptr<HittableVector> world;
         std::unique_ptr<Camera> camera;
 
-        switch (2)
+        switch (3)
         {
         case 1:
             world = std::make_unique<HittableVector>(CreateBouncingSpheres());
@@ -24,6 +25,10 @@ namespace RayTracer
         case 2:
             world = std::make_unique<HittableVector>(CreateCheckeredSpheres());
             camera = std::make_unique<Camera>(CreateCheckeredSpheresCamera());
+            break;
+        case 3:
+            world = std::make_unique<HittableVector>(CreateEarth());
+            camera = std::make_unique<Camera>(CreateEarthCamera());
             break;
         default:
             LOG_CRITICAL("Scene switch not handled properly.");
@@ -142,6 +147,31 @@ namespace RayTracer
         camera.LookFrom = Point3{13, 2, 3};
         camera.LookAt = Point3{0, 0, 0};
         camera.Up = Vector3{0, 1, 0};
+
+        return camera;
+    }
+
+    HittableVector Engine::CreateEarth()
+    {
+        auto earthTexture = std::make_shared<ImageTexture>("earthmap.jpg");
+        auto earthMaterial = std::make_shared<Lambertian>(earthTexture);
+        const auto globe = std::make_shared<Sphere>(Point3{0, 0, 0}, 2, earthMaterial);
+        return HittableVector{globe};
+    }
+
+    Camera Engine::CreateEarthCamera()
+    {
+        Camera camera{std::make_unique<FileRenderer>()};
+
+        camera.AspectRatio = 16.0f / 9.0f;
+        camera.ImageWidth = 640; // This produces a 640x360 image.
+        camera.SamplesPerPixel = 100;
+        camera.MaxDepth = 50;
+        camera.VerticalFOV = 20;
+        camera.LookFrom = Point3{0, 0, 12};
+        camera.LookAt = Point3{0, 0, 0};
+        camera.Up = Vector3{0, 1, 0};
+        camera.DefocusAngle = 0;
 
         return camera;
     }

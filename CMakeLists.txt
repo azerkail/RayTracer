@@ -62,14 +62,18 @@ add_executable(RayTracer main.cpp
         Source/Textures/SolidColorTexture.cpp
         Source/Textures/SolidColorTexture.h
         Source/Textures/CheckerTexture.cpp
-        Source/Textures/CheckerTexture.h)
+        Source/Textures/CheckerTexture.h
+        Source/Textures/ImageTexture.cpp
+        Source/Textures/ImageTexture.h)
 
 # Set warning levels.
-if(MSVC)
-    target_compile_options(RayTracer PRIVATE /W4 /WX)
-else()
-    target_compile_options(RayTracer PRIVATE -Wall -Wextra -Wpedantic -Werror -Wconversion -Wsign-conversion -Wno-unknown-pragmas)
-endif()
+if (MSVC)
+#    target_compile_options(RayTracer PRIVATE /W4 /WX)
+#    set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/External/stb_image.h PROPERTIES COMPILE_FLAGS "/w")
+else ()
+#    target_compile_options(RayTracer PRIVATE -Wall -Wextra -Wpedantic -Werror -Wconversion -Wsign-conversion -Wno-unknown-pragmas)
+#    set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/External/stb_image.h PROPERTIES COMPILE_FLAGS "-w")
+endif ()
 
 # Precompiled headers.
 target_precompile_headers(RayTracer PRIVATE Source/RayTracerPCH.h)
