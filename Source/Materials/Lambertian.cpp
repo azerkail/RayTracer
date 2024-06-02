@@ -1,8 +1,13 @@
 #include "Lambertian.h"
+#include "Textures/SolidColorTexture.h"
 
 namespace RayTracer
 {
-    Lambertian::Lambertian(const Color& albedo) : m_albedo(albedo)
+    Lambertian::Lambertian(const Color& albedo) : m_texture{std::make_shared<SolidColorTexture>(albedo)}
+    {
+    }
+
+    Lambertian::Lambertian(std::shared_ptr<ITexture> texture) : m_texture{std::move(texture)}
     {
     }
 
@@ -18,7 +23,7 @@ namespace RayTracer
         }
 
         scattered = Ray{result.Point, scatterDirection, rayIn.Time()};
-        attenuation = m_albedo;
+        attenuation = m_texture->Value(result.U, result.V, result.Point);
 
         return true;
     }

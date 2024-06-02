@@ -6,6 +6,7 @@
 #include "Materials/Lambertian.h"
 #include "Materials/Metal.h"
 #include "Materials/Dieletric.h"
+#include "Textures/CheckerTexture.h"
 
 namespace RayTracer
 {
@@ -21,7 +22,8 @@ namespace RayTracer
     {
         HittableVector world;
 
-        auto groundMaterial = std::make_shared<Lambertian>(Color{0.5f, 0.5f, 0.5f});
+        auto checker = std::make_shared<CheckerTexture>(0.32f, Color{0.2f, 0.3f, 0.1f}, Color{0.9f, 0.9f, 0.9f});
+        auto groundMaterial = std::make_shared<Lambertian>(checker);
         world.Add(std::make_shared<Sphere>(Point3{0, -1000.0f, 0}, 1000, groundMaterial));
 
         const auto offsetPoint = Point3{4, 0.2f, 0};

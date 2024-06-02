@@ -3,22 +3,24 @@
 
 #include "Materials/IMaterial.h"
 
-namespace RayTracer {
-
+namespace RayTracer
+{
     // Prevents circular dependency with IMaterial.
     class IMaterial;
 
-    class HitResult {
+    class HitResult
+    {
     public:
         Point3 Point;
         Vector3 Normal;
         float Interval = 0;
+        float U = 0;
+        float V = 0;
         bool FrontFace = false;
         std::shared_ptr<IMaterial> Material;
 
         void SetFaceNormal(const Ray& ray, const Vector3& outwardNormal);
     };
-
 }
 
 #endif //RAYTRACER_HITRESULT_H

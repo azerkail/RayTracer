@@ -57,7 +57,12 @@ add_executable(RayTracer main.cpp
         Source/Maths/AABB.cpp
         Source/Maths/AABB.h
         Source/BVH/BVHNode.cpp
-        Source/BVH/BVHNode.h)
+        Source/BVH/BVHNode.h
+        Source/Textures/ITexture.h
+        Source/Textures/SolidColorTexture.cpp
+        Source/Textures/SolidColorTexture.h
+        Source/Textures/CheckerTexture.cpp
+        Source/Textures/CheckerTexture.h)
 
 # Set warning levels.
 if(MSVC)

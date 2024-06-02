@@ -8,5 +8,8 @@
     <libraryRoots>
       <file path="$PROJECT_DIR$/Submodules/spdlog" />
     </libraryRoots>
+    <excludeRoots>
+      <file path="$PROJECT_DIR$/Submodules" />
+    </excludeRoots>
   </component>
 </project>
