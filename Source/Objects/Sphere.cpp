@@ -79,7 +79,7 @@ namespace RayTracer
         const float phi = std::atan2(-point.Z(), point.X()) + Constants::Pi;
 
         u = phi / (2 * Constants::Pi);
-        v = theta / phi;
+        v = theta / Constants::Pi;
     }
 
     Point3 Sphere::SphereCenter(const float time) const
