@@ -3,17 +3,19 @@
 
 #include "Camera/Camera.h"
 
-namespace RayTracer {
-
-    class Engine {
+namespace RayTracer
+{
+    class Engine
+    {
     public:
         static void Trace();
 
     private:
-        static HittableVector CreateWorld();
-        static Camera CreateCamera();
+        static HittableVector CreateBouncingSpheres();
+        static Camera CreateBouncingSpheresCamera();
+        static HittableVector CreateCheckeredSpheres();
+        static Camera CreateCheckeredSpheresCamera();
     };
-
 }
 
 #endif //RAYTRACER_ENGINE_H

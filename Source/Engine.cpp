@@ -12,13 +12,28 @@ namespace RayTracer
 {
     void Engine::Trace()
     {
-        const HittableVector& world = CreateWorld();
-        Camera camera = CreateCamera();
+        std::unique_ptr<HittableVector> world;
+        std::unique_ptr<Camera> camera;
 
-        camera.Render(world);
+        switch (2)
+        {
+        case 1:
+            world = std::make_unique<HittableVector>(CreateBouncingSpheres());
+            camera = std::make_unique<Camera>(CreateBouncingSpheresCamera());
+            break;
+        case 2:
+            world = std::make_unique<HittableVector>(CreateCheckeredSpheres());
+            camera = std::make_unique<Camera>(CreateCheckeredSpheresCamera());
+            break;
+        default:
+            LOG_CRITICAL("Scene switch not handled properly.");
+            return;
+        }
+
+        camera->Render(*world);
     }
 
-    HittableVector Engine::CreateWorld()
+    HittableVector Engine::CreateBouncingSpheres()
     {
         HittableVector world;
 
@@ -85,7 +100,7 @@ namespace RayTracer
         return world;
     }
 
-    Camera Engine::CreateCamera()
+    Camera Engine::CreateBouncingSpheresCamera()
     {
         Camera camera{std::make_unique<FileRenderer>()};
 
@@ -99,6 +114,34 @@ namespace RayTracer
         camera.Up = Vector3{0, 1, 0};
         camera.DefocusAngle = 0.6f;
         camera.FocusDistance = 10.0f;
+
+        return camera;
+    }
+
+    HittableVector Engine::CreateCheckeredSpheres()
+    {
+        HittableVector world;
+
+        auto checker = std::make_shared<CheckerTexture>(0.32f, Color{0.2f, 0.3f, 0.1f}, Color{0.9f, 0.9f, 0.9f});
+
+        world.Add(std::make_shared<Sphere>(Point3{0, -10, 0}, 10, std::make_shared<Lambertian>(checker)));
+        world.Add(std::make_shared<Sphere>(Point3{0, 10, 0}, 10, std::make_shared<Lambertian>(checker)));
+
+        return world;
+    }
+
+    Camera Engine::CreateCheckeredSpheresCamera()
+    {
+        Camera camera{std::make_unique<FileRenderer>()};
+
+        camera.AspectRatio = 16.0f / 9.0f;
+        camera.ImageWidth = 640; // This produces a 640x360 image.
+        camera.SamplesPerPixel = 100;
+        camera.MaxDepth = 50;
+        camera.VerticalFOV = 20;
+        camera.LookFrom = Point3{13, 2, 3};
+        camera.LookAt = Point3{0, 0, 0};
+        camera.Up = Vector3{0, 1, 0};
 
         return camera;
     }
