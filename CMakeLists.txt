@@ -64,7 +64,9 @@ add_executable(RayTracer main.cpp
         Source/Textures/CheckerTexture.cpp
         Source/Textures/CheckerTexture.h
         Source/Textures/ImageTexture.cpp
-        Source/Textures/ImageTexture.h)
+        Source/Textures/ImageTexture.h
+        Source/External/RTWImage.cpp
+        Source/External/RTWImage.h)
 
 # Set warning levels.
 if (MSVC)
@@ -75,8 +77,11 @@ else ()
 #    set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/External/stb_image.h PROPERTIES COMPILE_FLAGS "-w")
 endif ()
 
+# Configure asset files
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Source/Images/earthmap.jpg ${CMAKE_CURRENT_BINARY_DIR}/earthmap.jpg COPYONLY)
+
 # Precompiled headers.
-target_precompile_headers(RayTracer PRIVATE Source/RayTracerPCH.h)
+target_precompile_headers(RayTracer PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Source/RayTracerPCH.h)
 
 # spdlog
 ## Include spdlog header files.
