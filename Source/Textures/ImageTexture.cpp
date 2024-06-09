@@ -17,8 +17,12 @@ namespace RayTracer
         u = Interval{0, 1}.Clamp(u);
         v = 1.0f - Interval{0, 1}.Clamp(v);
 
+#pragma GCC diagnostic ignored "-Wconversion"
+#pragma GCC diagnostic ignored "-Wfloat-conversion"
         const int i = u * m_image.Width(); // NOLINT(*-narrowing-conversions)
         const int j = v * m_image.Height(); // NOLINT(*-narrowing-conversions)
+#pragma GCC diagnostic pop
+#pragma GCC diagnostic pop
         constexpr float colorScale = 1.0f / 255.0f;
         const unsigned char* pixel = m_image.PixelData(i, j);
 

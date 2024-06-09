@@ -70,11 +70,21 @@ add_executable(RayTracer main.cpp
 
 # Set warning levels.
 if (MSVC)
-#    target_compile_options(RayTracer PRIVATE /W4 /WX)
-#    set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/External/stb_image.h PROPERTIES COMPILE_FLAGS "/w")
+    target_compile_options(RayTracer PRIVATE /W4 /WX)
+    set_source_files_properties(
+            Source/External/RTWImage.h
+            Source/External/RTWImage.cpp
+            Source/External/stb_image.h
+            PROPERTIES APPEND_STRING PROPERTY COMPILE_FLAGS " -w"
+    )
 else ()
-#    target_compile_options(RayTracer PRIVATE -Wall -Wextra -Wpedantic -Werror -Wconversion -Wsign-conversion -Wno-unknown-pragmas)
-#    set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/External/stb_image.h PROPERTIES COMPILE_FLAGS "-w")
+    target_compile_options(RayTracer PRIVATE -Wall -Wextra -Wpedantic -Werror -Wconversion -Wsign-conversion -Wno-unknown-pragmas)
+    set_source_files_properties(
+            Source/External/RTWImage.h
+            Source/External/RTWImage.cpp
+            Source/External/stb_image.h
+            PROPERTIES APPEND_STRING PROPERTY COMPILE_FLAGS " -w"
+    )
 endif ()
 
 # Configure asset files
