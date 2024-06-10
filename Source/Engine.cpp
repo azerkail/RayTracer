@@ -8,6 +8,7 @@
 #include "Materials/Dieletric.h"
 #include "Textures/CheckerTexture.h"
 #include "Textures/ImageTexture.h"
+#include "Textures/NoiseTexture.h"
 
 namespace RayTracer
 {
@@ -16,7 +17,7 @@ namespace RayTracer
         std::unique_ptr<HittableVector> world;
         std::unique_ptr<Camera> camera;
 
-        switch (3)
+        switch (4)
         {
         case 1:
             world = std::make_unique<HittableVector>(CreateBouncingSpheres());
@@ -29,6 +30,10 @@ namespace RayTracer
         case 3:
             world = std::make_unique<HittableVector>(CreateEarth());
             camera = std::make_unique<Camera>(CreateEarthCamera());
+            break;
+        case 4:
+            world = std::make_unique<HittableVector>(CreatePerlinSpheres());
+            camera = std::make_unique<Camera>(CreatePerlinSpheresCamera());
             break;
         default:
             LOG_CRITICAL("Scene switch not handled properly.");
@@ -169,6 +174,35 @@ namespace RayTracer
         camera.MaxDepth = 50;
         camera.VerticalFOV = 20;
         camera.LookFrom = Point3{0, 0, 12};
+        camera.LookAt = Point3{0, 0, 0};
+        camera.Up = Vector3{0, 1, 0};
+        camera.DefocusAngle = 0;
+
+        return camera;
+    }
+
+    HittableVector Engine::CreatePerlinSpheres()
+    {
+        HittableVector world;
+
+        auto perlinTexture = std::make_shared<NoiseTexture>();
+
+        world.Add(std::make_shared<Sphere>(Point3(0, -1000, 0), 1000, std::make_shared<Lambertian>(perlinTexture)));
+        world.Add(std::make_shared<Sphere>(Point3(0, 2, 0), 2, std::make_shared<Lambertian>(perlinTexture)));
+
+        return world;
+    }
+
+    Camera Engine::CreatePerlinSpheresCamera()
+    {
+        Camera camera{std::make_unique<FileRenderer>()};
+
+        camera.AspectRatio = 16.0f / 9.0f;
+        camera.ImageWidth = 640; // This produces a 640x360 image.
+        camera.SamplesPerPixel = 100;
+        camera.MaxDepth = 50;
+        camera.VerticalFOV = 20;
+        camera.LookFrom = Point3{13, 2, 3};
         camera.LookAt = Point3{0, 0, 0};
         camera.Up = Vector3{0, 1, 0};
         camera.DefocusAngle = 0;
