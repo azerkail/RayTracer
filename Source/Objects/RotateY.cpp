@@ -8,7 +8,7 @@ namespace RayTracer
 
         m_sinTheta = std::sin(radians);
         m_cosTheta = std::cos(radians);
-        m_boundingBox = object->BoundingBox();
+        m_boundingBox = m_object->BoundingBox();
 
         Point3 min{Constants::Infinity, Constants::Infinity, Constants::Infinity};
         Point3 max{-Constants::Infinity, -Constants::Infinity, -Constants::Infinity};

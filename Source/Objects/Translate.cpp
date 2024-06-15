@@ -5,7 +5,7 @@ namespace RayTracer
     Translate::Translate(std::shared_ptr<IHittable> object, const Vector3& offset) : m_object{std::move(object)},
         m_offset{offset}
     {
-        m_boundingBox = object->BoundingBox() + offset;
+        m_boundingBox = m_object->BoundingBox() + offset;
     }
 
     bool Translate::Hit(const Ray& ray, const Interval interval, HitResult& result) const
