@@ -1,9 +1,13 @@
 #include "Camera.h"
 
-namespace RayTracer {
-    Camera::Camera(std::unique_ptr<IRenderer> renderer) : m_renderer(std::move(renderer)) {}
+namespace RayTracer
+{
+    Camera::Camera(std::unique_ptr<IRenderer> renderer) : m_renderer(std::move(renderer))
+    {
+    }
 
-    void Camera::Initialise() {
+    void Camera::Initialise()
+    {
         // Make sure image height is always at least 1 pixel.
         m_imageHeight = static_cast<int>(static_cast<float>(ImageWidth) / AspectRatio);
         m_imageHeight = m_imageHeight < 1 ? 1 : m_imageHeight;
@@ -42,16 +46,20 @@ namespace RayTracer {
         m_renderer->Initialise(ImageWidth, m_imageHeight);
     }
 
-    void Camera::Render(const HittableVector& world) {
+    void Camera::Render(const HittableVector& world)
+    {
         Initialise();
 
-        for (int row = 0; row < m_imageHeight; ++row) {
+        for (int row = 0; row < m_imageHeight; ++row)
+        {
             LOG_INFO("Lines remaining: {0}", m_imageHeight - row);
 
-            for (int column = 0; column < ImageWidth; ++column) {
+            for (int column = 0; column < ImageWidth; ++column)
+            {
                 Color pixelColor;
 
-                for (int sample = 0; sample < SamplesPerPixel; ++sample) {
+                for (int sample = 0; sample < SamplesPerPixel; ++sample)
+                {
                     Ray ray = GetRay(column, row);
                     pixelColor += GetRayColor(ray, MaxDepth, world);
                 }
@@ -63,18 +71,20 @@ namespace RayTracer {
         m_renderer->Terminate();
     }
 
-    Vector3 Camera::SampleSquare() {
+    Vector3 Camera::SampleSquare()
+    {
         return Vector3{Utilities::RandomFloat() - 0.5f, Utilities::RandomFloat() - 0.5f, 0};
     }
 
-    Ray Camera::GetRay(const int column, const int row) const {
+    Ray Camera::GetRay(const int column, const int row) const
+    {
         const auto columnAsFloat = static_cast<float>(column);
         const auto rowAsFloat = static_cast<float>(row);
 
         const Vector3 offset = SampleSquare();
         const Vector3 pixelSample = m_pixelOrigin
-                              + (columnAsFloat + offset.X()) * m_pixelDeltaU
-                              + (rowAsFloat + offset.Y()) * m_pixelDeltaV;
+            + (columnAsFloat + offset.X()) * m_pixelDeltaU
+            + (rowAsFloat + offset.Y()) * m_pixelDeltaV;
 
         const Vector3 rayOrigin = DefocusAngle <= 0 ? m_center : DefocusDiskSample();
         const Vector3 rayDirection = pixelSample - rayOrigin;
@@ -83,32 +93,37 @@ namespace RayTracer {
         return Ray{rayOrigin, rayDirection, rayTime};
     }
 
-    Point3 Camera::DefocusDiskSample() const {
+    Point3 Camera::DefocusDiskSample() const
+    {
         auto point = RandomInUnitDisk();
         return m_center + point[0] * m_defocusDiskU + point[1] * m_defocusDiskV;
     }
 
-    Color Camera::GetRayColor(const Ray& ray, const int depth, const HittableVector& world) { // NOLINT(*-no-recursion)
-        if (depth <= 0) {
+    Color Camera::GetRayColor(const Ray& ray, const int depth, const HittableVector& world) // NOLINT(*-no-recursion)
+    {
+        if (depth <= 0)
+        {
             return Color{};
         }
 
         HitResult result;
 
-        if (world.Hit(ray, Interval{0.001f, Constants::Infinity}, result)) {
-            Ray scattered;
-            Color attenuation;
-
-            if (result.Material->Scatter(ray, result, attenuation, scattered)) {
-                return attenuation * GetRayColor(scattered, depth - 1, world);
-            }
-
-            return Color{};
+        if (!world.Hit(ray, Interval{0.001f, Constants::Infinity}, result))
+        {
+            return Background;
         }
 
-        const Vector3 unitDirection = UnitVector(ray.Direction());
-        const float alpha = 0.5f * (unitDirection.Y() + 1.0f);
+        Ray scattered;
+        Color attenuation;
+        const Color colorFromEmission = result.Material->Emit(result.U, result.V, result.Point);
 
-        return (1 - alpha) * Color{1, 1, 1} + alpha * Color{0.5f, 0.7f, 1};
+        if (!result.Material->Scatter(ray, result, attenuation, scattered))
+        {
+            return colorFromEmission;
+        }
+
+        const Color colorFromScatter = attenuation * GetRayColor(scattered, depth - 1, world);
+
+        return colorFromEmission + colorFromScatter;
     }
 }

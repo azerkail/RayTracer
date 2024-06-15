@@ -6,6 +6,7 @@
 #include "Materials/Lambertian.h"
 #include "Materials/Metal.h"
 #include "Materials/Dieletric.h"
+#include "Materials/DiffuseLight.h"
 #include "Objects/Quad.h"
 #include "Textures/CheckerTexture.h"
 #include "Textures/ImageTexture.h"
@@ -18,7 +19,7 @@ namespace RayTracer
         std::unique_ptr<HittableVector> world;
         std::unique_ptr<Camera> camera;
 
-        switch (5)
+        switch (6)
         {
         case 1:
             world = std::make_unique<HittableVector>(CreateBouncingSpheres());
@@ -39,6 +40,10 @@ namespace RayTracer
         case 5:
             world = std::make_unique<HittableVector>(CreateQuads());
             camera = std::make_unique<Camera>(CreateQuadsCamera());
+            break;
+        case 6:
+            world = std::make_unique<HittableVector>(CreateSimpleLight());
+            camera = std::make_unique<Camera>(CreateSimpleLightCamera());
             break;
         default:
             LOG_CRITICAL("Scene switch not handled properly.");
@@ -129,6 +134,7 @@ namespace RayTracer
         camera.Up = Vector3{0, 1, 0};
         camera.DefocusAngle = 0.6f;
         camera.FocusDistance = 10.0f;
+        camera.Background = Color{0.7f, 0.8f, 1};
 
         return camera;
     }
@@ -157,6 +163,7 @@ namespace RayTracer
         camera.LookFrom = Point3{13, 2, 3};
         camera.LookAt = Point3{0, 0, 0};
         camera.Up = Vector3{0, 1, 0};
+        camera.Background = Color{0.7f, 0.8f, 1};
 
         return camera;
     }
@@ -182,6 +189,7 @@ namespace RayTracer
         camera.LookAt = Point3{0, 0, 0};
         camera.Up = Vector3{0, 1, 0};
         camera.DefocusAngle = 0;
+        camera.Background = Color{0.7f, 0.8f, 1};
 
         return camera;
     }
@@ -211,6 +219,7 @@ namespace RayTracer
         camera.LookAt = Point3{0, 0, 0};
         camera.Up = Vector3{0, 1, 0};
         camera.DefocusAngle = 0;
+        camera.Background = Color{0.7f, 0.8f, 1};
 
         return camera;
     }
@@ -247,6 +256,42 @@ namespace RayTracer
         camera.LookAt = Point3{0, 0, 0};
         camera.Up = Vector3{0, 1, 0};
         camera.DefocusAngle = 0;
+        camera.Background = Color{0.7f, 0.8f, 1};
+
+        return camera;
+    }
+
+    HittableVector Engine::CreateSimpleLight()
+    {
+        HittableVector world;
+
+        const auto perlinTexture = std::make_shared<NoiseTexture>(4);
+
+        world.Add(std::make_shared<Sphere>(Point3{0, -1000, 0}, 1000, std::make_shared<Lambertian>(perlinTexture)));
+        world.Add(std::make_shared<Sphere>(Point3{0, 2, 0}, 2, std::make_shared<Lambertian>(perlinTexture)));
+
+        const auto diffuseLight = std::make_shared<DiffuseLight>(Color{4, 4, 4});
+
+        world.Add(std::make_shared<Sphere>(Point3{0, 7, 0}, 2, diffuseLight));
+        world.Add(std::make_shared<Quad>(Point3{3, 1, -2}, Vector3{2, 0, 0}, Vector3{0, 2, 0}, diffuseLight));
+
+        return world;
+    }
+
+    Camera Engine::CreateSimpleLightCamera()
+    {
+        Camera camera{std::make_unique<FileRenderer>()};
+
+        camera.AspectRatio = 16.0f / 9.0f;
+        camera.ImageWidth = 640; // This produces a 640x360 image.
+        camera.SamplesPerPixel = 100;
+        camera.MaxDepth = 50;
+        camera.VerticalFOV = 20;
+        camera.LookFrom = Point3{26, 3, 6};
+        camera.LookAt = Point3{0, 2, 0};
+        camera.Up = Vector3{0, 1, 0};
+        camera.DefocusAngle = 0;
+        camera.Background = Color{0, 0, 0};
 
         return camera;
     }

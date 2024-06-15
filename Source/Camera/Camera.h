@@ -3,9 +3,10 @@
 
 #include "Renderers/IRenderer.h"
 
-namespace RayTracer {
-
-    class Camera {
+namespace RayTracer
+{
+    class Camera
+    {
     public:
         explicit Camera(std::unique_ptr<IRenderer> renderer);
 
@@ -19,6 +20,7 @@ namespace RayTracer {
         Point3 LookFrom;
         Point3 LookAt{0, 0, -1};
         Vector3 Up{0, 1, 0};
+        Color Background{0, 0, 0};
 
         void Render(const HittableVector& world);
 
@@ -39,9 +41,8 @@ namespace RayTracer {
         [[nodiscard]] Point3 DefocusDiskSample() const;
 
         static Vector3 SampleSquare();
-        static Color GetRayColor(const Ray& ray, int depth, const HittableVector& world);
+        Color GetRayColor(const Ray& ray, int depth, const HittableVector& world);
     };
-
 }
 
 #endif //RAYTRACER_CAMERA_H

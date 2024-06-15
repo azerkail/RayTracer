@@ -21,6 +21,8 @@ namespace RayTracer
         static Camera CreatePerlinSpheresCamera();
         static HittableVector CreateQuads();
         static Camera CreateQuadsCamera();
+        static HittableVector CreateSimpleLight();
+        static Camera CreateSimpleLightCamera();
     };
 }
 

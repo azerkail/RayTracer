@@ -72,7 +72,9 @@ add_executable(RayTracer main.cpp
         Source/Textures/NoiseTexture.cpp
         Source/Textures/NoiseTexture.h
         Source/Objects/Quad.cpp
-        Source/Objects/Quad.h)
+        Source/Objects/Quad.h
+        Source/Materials/DiffuseLight.cpp
+        Source/Materials/DiffuseLight.h)
 
 # Set warning levels.
 if (MSVC)
