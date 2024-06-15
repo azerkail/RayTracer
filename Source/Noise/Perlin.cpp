@@ -26,9 +26,13 @@ namespace RayTracer
 
     float Perlin::Noise(const Point3& point) const
     {
-        const float u = point.X() - std::floor(point.X());
-        const float v = point.Y() - std::floor(point.Y());
-        const float w = point.Z() - std::floor(point.Z());
+        float u = point.X() - std::floor(point.X());
+        float v = point.Y() - std::floor(point.Y());
+        float w = point.Z() - std::floor(point.Z());
+
+        u = u * u * (3 - 2 * u);
+        v = v * v * (3 - 2 * v);
+        w = w * w * (3 - 2 * w);
 
         const auto i = static_cast<int>(std::floor(point.X()));
         const auto j = static_cast<int>(std::floor(point.Y()));
