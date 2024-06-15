@@ -185,7 +185,7 @@ namespace RayTracer
     {
         HittableVector world;
 
-        auto perlinTexture = std::make_shared<NoiseTexture>();
+        auto perlinTexture = std::make_shared<NoiseTexture>(4);
 
         world.Add(std::make_shared<Sphere>(Point3(0, -1000, 0), 1000, std::make_shared<Lambertian>(perlinTexture)));
         world.Add(std::make_shared<Sphere>(Point3(0, 2, 0), 2, std::make_shared<Lambertian>(perlinTexture)));
