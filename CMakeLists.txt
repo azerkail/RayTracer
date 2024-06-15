@@ -70,7 +70,9 @@ add_executable(RayTracer main.cpp
         Source/Noise/Perlin.cpp
         Source/Noise/Perlin.h
         Source/Textures/NoiseTexture.cpp
-        Source/Textures/NoiseTexture.h)
+        Source/Textures/NoiseTexture.h
+        Source/Objects/Quad.cpp
+        Source/Objects/Quad.h)
 
 # Set warning levels.
 if (MSVC)

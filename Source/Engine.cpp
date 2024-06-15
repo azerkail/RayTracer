@@ -6,6 +6,7 @@
 #include "Materials/Lambertian.h"
 #include "Materials/Metal.h"
 #include "Materials/Dieletric.h"
+#include "Objects/Quad.h"
 #include "Textures/CheckerTexture.h"
 #include "Textures/ImageTexture.h"
 #include "Textures/NoiseTexture.h"
@@ -17,7 +18,7 @@ namespace RayTracer
         std::unique_ptr<HittableVector> world;
         std::unique_ptr<Camera> camera;
 
-        switch (4)
+        switch (5)
         {
         case 1:
             world = std::make_unique<HittableVector>(CreateBouncingSpheres());
@@ -34,6 +35,10 @@ namespace RayTracer
         case 4:
             world = std::make_unique<HittableVector>(CreatePerlinSpheres());
             camera = std::make_unique<Camera>(CreatePerlinSpheresCamera());
+            break;
+        case 5:
+            world = std::make_unique<HittableVector>(CreateQuads());
+            camera = std::make_unique<Camera>(CreateQuadsCamera());
             break;
         default:
             LOG_CRITICAL("Scene switch not handled properly.");
@@ -203,6 +208,42 @@ namespace RayTracer
         camera.MaxDepth = 50;
         camera.VerticalFOV = 20;
         camera.LookFrom = Point3{13, 2, 3};
+        camera.LookAt = Point3{0, 0, 0};
+        camera.Up = Vector3{0, 1, 0};
+        camera.DefocusAngle = 0;
+
+        return camera;
+    }
+
+    HittableVector Engine::CreateQuads()
+    {
+        HittableVector world;
+
+        auto leftRed = std::make_shared<Lambertian>(Color{1.0f, 0.2f, 0.2f});
+        auto backGreen = std::make_shared<Lambertian>(Color{0.2f, 1.0f, 0.2f});
+        auto rightBlue = std::make_shared<Lambertian>(Color{0.2f, 0.2f, 1.0f});
+        auto upperOrange = std::make_shared<Lambertian>(Color{1.0f, 0.5f, 0.0f});
+        auto lowerTeal = std::make_shared<Lambertian>(Color{0.2f, 0.8f, 0.8f});
+
+        world.Add(std::make_shared<Quad>(Point3{-3, -2, 5}, Vector3{0, 0, -4}, Vector3{0, 4, 0}, leftRed));
+        world.Add(std::make_shared<Quad>(Point3{-2, -2, 0}, Vector3{4, 0, 0}, Vector3{0, 4, 0}, backGreen));
+        world.Add(std::make_shared<Quad>(Point3{3, -2, 1}, Vector3{0, 0, 4}, Vector3{0, 4, 0}, rightBlue));
+        world.Add(std::make_shared<Quad>(Point3{-2, 3, 1}, Vector3{4, 0, 0}, Vector3{0, 0, 4}, upperOrange));
+        world.Add(std::make_shared<Quad>(Point3{-2, -3, 5}, Vector3{4, 0, 0}, Vector3{0, 0, -4}, lowerTeal));
+
+        return world;
+    }
+
+    Camera Engine::CreateQuadsCamera()
+    {
+        Camera camera{std::make_unique<FileRenderer>()};
+
+        camera.AspectRatio = 1.0;
+        camera.ImageWidth = 640; // This produces a 640x360 image.
+        camera.SamplesPerPixel = 100;
+        camera.MaxDepth = 50;
+        camera.VerticalFOV = 80;
+        camera.LookFrom = Point3{0, 0, 9};
         camera.LookAt = Point3{0, 0, 0};
         camera.Up = Vector3{0, 1, 0};
         camera.DefocusAngle = 0;

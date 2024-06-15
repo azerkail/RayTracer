@@ -19,6 +19,8 @@ namespace RayTracer
         static Camera CreateEarthCamera();
         static HittableVector CreatePerlinSpheres();
         static Camera CreatePerlinSpheresCamera();
+        static HittableVector CreateQuads();
+        static Camera CreateQuadsCamera();
     };
 }
 

@@ -90,4 +90,24 @@ namespace RayTracer
 
         return m_y.Size() > m_z.Size() ? 1 : 2;
     }
+
+    void AABB::PadToMinimums()
+    {
+        constexpr float delta = 0.0001f;
+
+        if (m_x.Size() < delta)
+        {
+            m_x = m_x.Expand(delta);
+        }
+
+        if (m_y.Size() < delta)
+        {
+            m_y = m_y.Expand(delta);
+        }
+
+        if (m_z.Size() < delta)
+        {
+            m_z = m_z.Expand(delta);
+        }
+    }
 } // RayTracer

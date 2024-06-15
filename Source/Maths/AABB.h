@@ -21,6 +21,8 @@ namespace RayTracer
 
     private:
         Interval m_x, m_y, m_z;
+
+        void PadToMinimums();
     };
 }
 
