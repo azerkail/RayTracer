@@ -20,4 +20,4 @@ namespace RayTracer
     };
 }
 
-#endif // NOISETEXTURE_H
+#endif

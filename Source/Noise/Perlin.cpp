@@ -136,4 +136,20 @@ namespace RayTracer
 
         return accumulator;
     }
+
+    float Perlin::Turbulance(const Vector3& point, const int depth) const
+    {
+        float accumulator = 0.0f;
+        float weight = 1.0f;
+        Vector3 temporaryPoint = point;
+
+        for (int index = 0; index < depth; ++index)
+        {
+            accumulator += weight * Noise(temporaryPoint);
+            weight *= 0.5f;
+            temporaryPoint *= 2;
+        }
+
+        return std::fabs(accumulator);
+    }
 }

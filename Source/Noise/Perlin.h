@@ -10,6 +10,7 @@ namespace RayTracer
         ~Perlin();
 
         [[nodiscard]] float Noise(const Point3& point) const;
+        [[nodiscard]] float Turbulance(const Vector3& point, int depth) const;
 
     private:
         static constexpr int m_pointCount = 256;
