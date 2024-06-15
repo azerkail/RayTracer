@@ -13,7 +13,7 @@ namespace RayTracer
 
     private:
         static constexpr int m_pointCount = 256;
-        float* m_randomFloat;
+        Vector3* m_randomVectors;
         int* m_permanentX;
         int* m_permanentY;
         int* m_permanentZ;
@@ -21,6 +21,7 @@ namespace RayTracer
         static int* PerlinGeneratePermanent();
         static void Permute(int* point, int number);
         static float TrilinearInterpolation(float c[2][2][2], float u, float v, float w);
+        static float PerlinInterpolation(const Vector3 c[2][2][2], float u, float v, float w);
     };
 }
 
