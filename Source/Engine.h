@@ -23,6 +23,8 @@ namespace RayTracer
         static Camera CreateQuadsCamera();
         static HittableVector CreateSimpleLight();
         static Camera CreateSimpleLightCamera();
+        static HittableVector CreateCornellBox();
+        static Camera CreateCornellBoxCamera();
     };
 }
 
