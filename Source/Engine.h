@@ -22,4 +22,4 @@ namespace RayTracer
     };
 }
 
-#endif //RAYTRACER_ENGINE_H
+#endif

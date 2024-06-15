@@ -26,11 +26,32 @@ namespace RayTracer
 
     float Perlin::Noise(const Point3& point) const
     {
-        const int i = static_cast<int>(4 * point.X()) & 255;
-        const int j = static_cast<int>(4 * point.Y()) & 255;
-        const int k = static_cast<int>(4 * point.Z()) & 255;
+        const float u = point.X() - std::floor(point.X());
+        const float v = point.Y() - std::floor(point.Y());
+        const float w = point.Z() - std::floor(point.Z());
 
-        return m_randomFloat[m_permanentX[i] ^ m_permanentY[j] ^ m_permanentZ[k]];
+        const auto i = static_cast<int>(std::floor(point.X()));
+        const auto j = static_cast<int>(std::floor(point.Y()));
+        const auto k = static_cast<int>(std::floor(point.Z()));
+
+        float c[2][2][2];
+
+        for (int di = 0; di < 2; ++di)
+        {
+            for (int dj = 0; dj < 2; ++dj)
+            {
+                for (int dk = 0; dk < 2; ++dk)
+                {
+                    c[di][dj][dk] = m_randomFloat[
+                        m_permanentX[(i + di) & 255] ^
+                        m_permanentY[(j + dj) & 255] ^
+                        m_permanentZ[(k + dk) & 255]
+                    ];
+                }
+            }
+        }
+
+        return TrilinearInterpolation(c, u, v, w);
     }
 
     int* Perlin::PerlinGeneratePermanent()
@@ -56,5 +77,32 @@ namespace RayTracer
             point[index] = point[target];
             point[target] = temp;
         }
+    }
+
+    float Perlin::TrilinearInterpolation(float c[2][2][2], const float u, const float v, const float w)
+    {
+        float accumulator = 0.0f;
+
+        for (int i = 0; i < 2; ++i)
+        {
+            const auto iAsFloat = static_cast<float>(i);
+
+            for (int j = 0; j < 2; ++j)
+            {
+                const auto jAsFloat = static_cast<float>(j);
+
+                for (int k = 0; k < 2; ++k)
+                {
+                    const auto kAsFloat = static_cast<float>(k);
+
+                    accumulator += (iAsFloat * u + (1 - iAsFloat) * (1 - u)) *
+                        (jAsFloat * v + (1 - jAsFloat) * (1 - v)) *
+                        (kAsFloat * w + (1 - kAsFloat) * (1 - w)) *
+                        c[i][j][k];
+                }
+            }
+        }
+
+        return accumulator;
     }
 }

@@ -20,6 +20,7 @@ namespace RayTracer
 
         static int* PerlinGeneratePermanent();
         static void Permute(int* point, int number);
+        static float TrilinearInterpolation(float c[2][2][2], float u, float v, float w);
     };
 }
 
