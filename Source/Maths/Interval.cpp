@@ -71,4 +71,14 @@ namespace RayTracer
         const float padding = delta / 2;
         return Interval{m_min - padding, m_max + padding};
     }
+
+    Interval operator+(const Interval& interval, const float displacement)
+    {
+        return Interval{interval.GetMin() + displacement, interval.GetMax() + displacement};
+    }
+
+    Interval operator+(const float displacement, const Interval& interval)
+    {
+        return interval + displacement;
+    }
 }

@@ -15,6 +15,10 @@ namespace RayTracer
         AABB(const Point3& first, const Point3& second);
         AABB(const AABB& first, const AABB& second);
 
+        [[nodiscard]] Interval X() const;
+        [[nodiscard]] Interval Y() const;
+        [[nodiscard]] Interval Z() const;
+
         [[nodiscard]] const Interval& AxisInterval(int number) const;
         [[nodiscard]] bool Hit(const Ray& ray, Interval rayInterval) const;
         [[nodiscard]] int LongestAxis() const;
@@ -24,6 +28,9 @@ namespace RayTracer
 
         void PadToMinimums();
     };
+
+    AABB operator+(const AABB& boundingBox, const Vector3& offset);
+    AABB operator+(const Vector3& offset, const AABB& boundingBox);
 }
 
 #endif // AABB_H

@@ -18,11 +18,6 @@ namespace RayTracer
         m_boundingBox = AABB{m_boundingBox, object->BoundingBox()};
     }
 
-    void HittableVector::Add(const HittableVector& other)
-    {
-        m_objects.insert(std::end(m_objects), std::begin(other.m_objects), std::end(other.m_objects));
-    }
-
     bool HittableVector::Hit(const Ray& ray, const Interval interval, HitResult& result) const
     {
         HitResult temporaryResult;

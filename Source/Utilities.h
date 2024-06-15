@@ -52,10 +52,10 @@ namespace RayTracer
             return 0;
         }
 
-        static HittableVector Box(const Point3& a, const Point3& b,
-                                  const std::shared_ptr<IMaterial>& material)
+        static std::shared_ptr<HittableVector> Box(const Point3& a, const Point3& b,
+                                                   const std::shared_ptr<IMaterial>& material)
         {
-            HittableVector sides;
+            auto sides = std::make_shared<HittableVector>();
 
             const Point3 min{std::fmin(a.X(), b.X()), std::fmin(a.Y(), b.Y()), std::fmin(a.Z(), b.Z())};
             const Point3 max{std::fmax(a.X(), b.X()), std::fmax(a.Y(), b.Y()), std::fmax(a.Z(), b.Z())};
@@ -65,17 +65,17 @@ namespace RayTracer
             const Vector3 zDelta{0, 0, max.Z() - min.Z()};
 
             // Front.
-            sides.Add(std::make_shared<Quad>(Point3{min.X(), min.Y(), max.Z()}, xDelta, yDelta, material));
+            sides->Add(std::make_shared<Quad>(Point3{min.X(), min.Y(), max.Z()}, xDelta, yDelta, material));
             // Right.
-            sides.Add(std::make_shared<Quad>(Point3{max.X(), min.Y(), max.Z()}, -zDelta, yDelta, material));
+            sides->Add(std::make_shared<Quad>(Point3{max.X(), min.Y(), max.Z()}, -zDelta, yDelta, material));
             // Back.
-            sides.Add(std::make_shared<Quad>(Point3{max.X(), min.Y(), min.Z()}, -xDelta, yDelta, material));
+            sides->Add(std::make_shared<Quad>(Point3{max.X(), min.Y(), min.Z()}, -xDelta, yDelta, material));
             // Left.
-            sides.Add(std::make_shared<Quad>(Point3{min.X(), min.Y(), min.Z()}, zDelta, yDelta, material));
+            sides->Add(std::make_shared<Quad>(Point3{min.X(), min.Y(), min.Z()}, zDelta, yDelta, material));
             // Top.
-            sides.Add(std::make_shared<Quad>(Point3{min.X(), max.Y(), max.Z()}, xDelta, -zDelta, material));
+            sides->Add(std::make_shared<Quad>(Point3{min.X(), max.Y(), max.Z()}, xDelta, -zDelta, material));
             // Bottom.
-            sides.Add(std::make_shared<Quad>(Point3{min.X(), min.Y(), min.Z()}, xDelta, zDelta, material));
+            sides->Add(std::make_shared<Quad>(Point3{min.X(), min.Y(), min.Z()}, xDelta, zDelta, material));
 
             return sides;
         }

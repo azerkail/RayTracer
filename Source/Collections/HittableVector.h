@@ -7,7 +7,7 @@
 
 namespace RayTracer
 {
-    class HittableVector
+    class HittableVector final : public IHittable
     {
     public:
         HittableVector() = default;
@@ -15,12 +15,10 @@ namespace RayTracer
 
         void Clear();
         void Add(const std::shared_ptr<IHittable>& object);
-        void Add(const HittableVector& other);
-
-        bool Hit(const Ray& ray, Interval interval, HitResult& result) const;
-
         [[nodiscard]] std::vector<std::shared_ptr<IHittable>>& GetObjects();
-        [[nodiscard]] AABB BoundingBox() const;
+
+        bool Hit(const Ray& ray, Interval interval, HitResult& result) const override;
+        [[nodiscard]] AABB BoundingBox() const override;
 
     private:
         std::vector<std::shared_ptr<IHittable>> m_objects;

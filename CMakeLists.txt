@@ -74,7 +74,11 @@ add_executable(RayTracer main.cpp
         Source/Objects/Quad.cpp
         Source/Objects/Quad.h
         Source/Materials/DiffuseLight.cpp
-        Source/Materials/DiffuseLight.h)
+        Source/Materials/DiffuseLight.h
+        Source/Objects/Translate.cpp
+        Source/Objects/Translate.h
+        Source/Objects/RotateY.cpp
+        Source/Objects/RotateY.h)
 
 # Set warning levels.
 if (MSVC)

@@ -8,6 +8,8 @@
 #include "Materials/Dieletric.h"
 #include "Materials/DiffuseLight.h"
 #include "Objects/Quad.h"
+#include "Objects/RotateY.h"
+#include "Objects/Translate.h"
 #include "Textures/CheckerTexture.h"
 #include "Textures/ImageTexture.h"
 #include "Textures/NoiseTexture.h"
@@ -316,8 +318,15 @@ namespace RayTracer
         world.Add(std::make_shared<Quad>(Point3{555, 555, 555}, Vector3{-555, 0, 0}, Vector3{0, 0, -555}, white));
         world.Add(std::make_shared<Quad>(Point3{0, 0, 555}, Vector3{555, 0, 0}, Vector3{0, 555, 0}, white));
 
-        world.Add(Utilities::Box(Point3{130, 0, 65}, Point3{295, 165, 230}, white));
-        world.Add(Utilities::Box(Point3{265, 0, 295}, Point3{430, 330, 460}, white));
+        std::shared_ptr<IHittable> box1 = Utilities::Box(Point3{0, 0, 0}, Point3{165, 330, 165}, white);
+        box1 = std::make_shared<RotateY>(box1, 15);
+        box1 = std::make_shared<Translate>(box1, Vector3{265, 0, 295});
+        world.Add(box1);
+
+        std::shared_ptr<IHittable> box2 = Utilities::Box(Point3{0, 0, 0}, Point3{165, 165, 165}, white);
+        box2 = std::make_shared<RotateY>(box2, -18);
+        box2 = std::make_shared<Translate>(box2, Vector3{130, 0, 65});
+        world.Add(box2);
 
         return world;
     }

@@ -1,9 +1,10 @@
 #ifndef RAYTRACER_INTERVAL_H
 #define RAYTRACER_INTERVAL_H
 
-namespace RayTracer {
-
-    class Interval {
+namespace RayTracer
+{
+    class Interval
+    {
     public:
         Interval();
         Interval(float min, float max);
@@ -19,10 +20,13 @@ namespace RayTracer {
         [[nodiscard]] bool Contains(float value) const;
         [[nodiscard]] bool Surrounds(float value) const;
         [[nodiscard]] Interval Expand(float delta) const;
+
     private:
         float m_min, m_max;
     };
 
+    Interval operator+(const Interval& interval, float displacement);
+    Interval operator+(float displacement, const Interval& interval);
 }
 
 #endif // RAYTRACER_INTERVAL_H

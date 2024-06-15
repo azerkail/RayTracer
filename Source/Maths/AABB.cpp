@@ -20,6 +20,21 @@ namespace RayTracer
         m_z = Interval(first.m_z, second.m_z);
     }
 
+    Interval AABB::X() const
+    {
+        return m_x;
+    }
+
+    Interval AABB::Y() const
+    {
+        return m_y;
+    }
+
+    Interval AABB::Z() const
+    {
+        return m_z;
+    }
+
     const Interval& AABB::AxisInterval(const int number) const
     {
         if (number == 1)
@@ -109,5 +124,15 @@ namespace RayTracer
         {
             m_z = m_z.Expand(delta);
         }
+    }
+
+    AABB operator+(const AABB& boundingBox, const Vector3& offset)
+    {
+        return AABB{boundingBox.X() + offset.X(), boundingBox.Y() + offset.Y(), boundingBox.Z() + offset.Z()};
+    }
+
+    AABB operator+(const Vector3& offset, const AABB& boundingBox)
+    {
+        return boundingBox + offset;
     }
 } // RayTracer
