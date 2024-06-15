@@ -2,7 +2,7 @@
 
 namespace RayTracer
 {
-    HittableVector::HittableVector(const std::shared_ptr<Hittable>& object)
+    HittableVector::HittableVector(const std::shared_ptr<IHittable>& object)
     {
         Add(object);
     }
@@ -12,10 +12,15 @@ namespace RayTracer
         m_objects.clear();
     }
 
-    void HittableVector::Add(const std::shared_ptr<Hittable>& object)
+    void HittableVector::Add(const std::shared_ptr<IHittable>& object)
     {
         m_objects.push_back(object);
         m_boundingBox = AABB{m_boundingBox, object->BoundingBox()};
+    }
+
+    void HittableVector::Add(const HittableVector& other)
+    {
+        m_objects.insert(std::end(m_objects), std::begin(other.m_objects), std::end(other.m_objects));
     }
 
     bool HittableVector::Hit(const Ray& ray, const Interval interval, HitResult& result) const
@@ -37,7 +42,7 @@ namespace RayTracer
         return hitAnything;
     }
 
-    std::vector<std::shared_ptr<Hittable>>& HittableVector::GetObjects()
+    std::vector<std::shared_ptr<IHittable>>& HittableVector::GetObjects()
     {
         return m_objects;
     }

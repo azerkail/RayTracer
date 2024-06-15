@@ -3,7 +3,7 @@
 
 namespace RayTracer
 {
-    class Quad final : public Hittable
+    class Quad final : public IHittable
     {
     public:
         Quad(const Point3& q, const Vector3& u, const Vector3& v, std::shared_ptr<IMaterial> material);

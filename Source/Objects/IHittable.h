@@ -7,10 +7,10 @@
 
 namespace RayTracer
 {
-    class Hittable
+    class IHittable
     {
     public:
-        virtual ~Hittable() = default;
+        virtual ~IHittable() = default;
         virtual bool Hit(const Ray& ray, Interval interval, HitResult& result) const = 0;
         [[nodiscard]] virtual AABB BoundingBox() const = 0;
     };

@@ -6,7 +6,7 @@ namespace RayTracer
     {
     }
 
-    BVHNode::BVHNode(std::vector<std::shared_ptr<Hittable>>& objects, const size_t start, const size_t end)
+    BVHNode::BVHNode(std::vector<std::shared_ptr<IHittable>>& objects, const size_t start, const size_t end)
     {
         m_boundingBox = Constants::AABBEmpty;
 
@@ -60,7 +60,7 @@ namespace RayTracer
         return m_boundingBox;
     }
 
-    bool BVHNode::BoxCompare(const std::shared_ptr<Hittable>& first, const std::shared_ptr<Hittable>& second,
+    bool BVHNode::BoxCompare(const std::shared_ptr<IHittable>& first, const std::shared_ptr<IHittable>& second,
                              const int axisIndex)
     {
         const auto firstAxisInterval = first->BoundingBox().AxisInterval(axisIndex);
@@ -68,17 +68,17 @@ namespace RayTracer
         return firstAxisInterval.GetMin() < secondAxisInterval.GetMin();
     }
 
-    bool BVHNode::BoxXCompare(const std::shared_ptr<Hittable>& first, const std::shared_ptr<Hittable>& second)
+    bool BVHNode::BoxXCompare(const std::shared_ptr<IHittable>& first, const std::shared_ptr<IHittable>& second)
     {
         return BoxCompare(first, second, 0);
     }
 
-    bool BVHNode::BoxYCompare(const std::shared_ptr<Hittable>& first, const std::shared_ptr<Hittable>& second)
+    bool BVHNode::BoxYCompare(const std::shared_ptr<IHittable>& first, const std::shared_ptr<IHittable>& second)
     {
         return BoxCompare(first, second, 1);
     }
 
-    bool BVHNode::BoxZCompare(const std::shared_ptr<Hittable>& first, const std::shared_ptr<Hittable>& second)
+    bool BVHNode::BoxZCompare(const std::shared_ptr<IHittable>& first, const std::shared_ptr<IHittable>& second)
     {
         return BoxCompare(first, second, 2);
     }

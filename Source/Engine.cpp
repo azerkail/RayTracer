@@ -316,6 +316,9 @@ namespace RayTracer
         world.Add(std::make_shared<Quad>(Point3{555, 555, 555}, Vector3{-555, 0, 0}, Vector3{0, 0, -555}, white));
         world.Add(std::make_shared<Quad>(Point3{0, 0, 555}, Vector3{555, 0, 0}, Vector3{0, 555, 0}, white));
 
+        world.Add(Utilities::Box(Point3{130, 0, 65}, Point3{295, 165, 230}, white));
+        world.Add(Utilities::Box(Point3{265, 0, 295}, Point3{430, 330, 460}, white));
+
         return world;
     }
 

@@ -1,12 +1,12 @@
 #ifndef RAYTRACER_SPHERE_H
 #define RAYTRACER_SPHERE_H
 
-#include "Hittable.h"
+#include "IHittable.h"
 #include "Materials/IMaterial.h"
 
 namespace RayTracer
 {
-    class Sphere final : public Hittable
+    class Sphere final : public IHittable
     {
     public:
         Sphere(const Point3& center, float radius, std::shared_ptr<IMaterial> material);

@@ -2,6 +2,8 @@
 #define RAYTRACER_UTILITIES_H
 
 #include <random>
+#include "Collections/HittableVector.h"
+#include "Objects/Quad.h"
 
 namespace RayTracer
 {
@@ -48,6 +50,34 @@ namespace RayTracer
             }
 
             return 0;
+        }
+
+        static HittableVector Box(const Point3& a, const Point3& b,
+                                  const std::shared_ptr<IMaterial>& material)
+        {
+            HittableVector sides;
+
+            const Point3 min{std::fmin(a.X(), b.X()), std::fmin(a.Y(), b.Y()), std::fmin(a.Z(), b.Z())};
+            const Point3 max{std::fmax(a.X(), b.X()), std::fmax(a.Y(), b.Y()), std::fmax(a.Z(), b.Z())};
+
+            const Vector3 xDelta{max.X() - min.X(), 0, 0};
+            const Vector3 yDelta{0, max.Y() - min.Y(), 0};
+            const Vector3 zDelta{0, 0, max.Z() - min.Z()};
+
+            // Front.
+            sides.Add(std::make_shared<Quad>(Point3{min.X(), min.Y(), max.Z()}, xDelta, yDelta, material));
+            // Right.
+            sides.Add(std::make_shared<Quad>(Point3{max.X(), min.Y(), max.Z()}, -zDelta, yDelta, material));
+            // Back.
+            sides.Add(std::make_shared<Quad>(Point3{max.X(), min.Y(), min.Z()}, -xDelta, yDelta, material));
+            // Left.
+            sides.Add(std::make_shared<Quad>(Point3{min.X(), min.Y(), min.Z()}, zDelta, yDelta, material));
+            // Top.
+            sides.Add(std::make_shared<Quad>(Point3{min.X(), max.Y(), max.Z()}, xDelta, -zDelta, material));
+            // Bottom.
+            sides.Add(std::make_shared<Quad>(Point3{min.X(), min.Y(), min.Z()}, xDelta, zDelta, material));
+
+            return sides;
         }
     };
 }
