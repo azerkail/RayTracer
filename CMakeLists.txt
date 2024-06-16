@@ -78,7 +78,11 @@ add_executable(RayTracer main.cpp
         Source/Objects/Translate.cpp
         Source/Objects/Translate.h
         Source/Objects/RotateY.cpp
-        Source/Objects/RotateY.h)
+        Source/Objects/RotateY.h
+        Source/Objects/ConstantMedium.cpp
+        Source/Objects/ConstantMedium.h
+        Source/Materials/Isotropic.cpp
+        Source/Materials/Isotropic.h)
 
 # Set warning levels.
 if (MSVC)

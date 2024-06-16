@@ -12,16 +12,16 @@ namespace RayTracer
 
     Interval::Interval(const Interval& first, const Interval& second)
     {
-        m_min = first.GetMin() <= second.GetMin() ? first.GetMin() : second.GetMin();
-        m_max = first.GetMax() >= second.GetMax() ? first.GetMax() : second.GetMax();
+        m_min = first.Min() <= second.Min() ? first.Min() : second.Min();
+        m_max = first.Max() >= second.Max() ? first.Max() : second.Max();
     }
 
-    float Interval::GetMin() const
+    float Interval::Min() const
     {
         return m_min;
     }
 
-    float Interval::GetMax() const
+    float Interval::Max() const
     {
         return m_max;
     }
@@ -74,7 +74,7 @@ namespace RayTracer
 
     Interval operator+(const Interval& interval, const float displacement)
     {
-        return Interval{interval.GetMin() + displacement, interval.GetMax() + displacement};
+        return Interval{interval.Min() + displacement, interval.Max() + displacement};
     }
 
     Interval operator+(const float displacement, const Interval& interval)

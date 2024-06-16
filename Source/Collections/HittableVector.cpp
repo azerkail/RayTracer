@@ -22,11 +22,11 @@ namespace RayTracer
     {
         HitResult temporaryResult;
         bool hitAnything = false;
-        auto closesSoFar = interval.GetMax();
+        auto closesSoFar = interval.Max();
 
         for (const auto& object : m_objects)
         {
-            if (object->Hit(ray, Interval{interval.GetMin(), closesSoFar}, temporaryResult))
+            if (object->Hit(ray, Interval{interval.Min(), closesSoFar}, temporaryResult))
             {
                 hitAnything = true;
                 closesSoFar = temporaryResult.Interval;

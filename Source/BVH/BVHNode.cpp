@@ -49,7 +49,7 @@ namespace RayTracer
 
         const bool hitLeft = m_left->Hit(ray, interval, result);
         const bool hitRight = m_right->Hit(ray, Interval{
-                                               interval.GetMin(), hitLeft ? result.Interval : interval.GetMax()
+                                               interval.Min(), hitLeft ? result.Interval : interval.Max()
                                            }, result);
 
         return hitLeft || hitRight;
@@ -65,7 +65,7 @@ namespace RayTracer
     {
         const auto firstAxisInterval = first->BoundingBox().AxisInterval(axisIndex);
         const auto secondAxisInterval = second->BoundingBox().AxisInterval(axisIndex);
-        return firstAxisInterval.GetMin() < secondAxisInterval.GetMin();
+        return firstAxisInterval.Min() < secondAxisInterval.Min();
     }
 
     bool BVHNode::BoxXCompare(const std::shared_ptr<IHittable>& first, const std::shared_ptr<IHittable>& second)

@@ -24,9 +24,9 @@ namespace RayTracer
                 for (int k = 0; k < 2; ++k)
                 {
                     const auto kAsFloat = static_cast<float>(k);
-                    const float x = iAsFloat * m_boundingBox.X().GetMax() + (1 - iAsFloat) * m_boundingBox.X().GetMin();
-                    const float y = jAsFloat * m_boundingBox.Y().GetMax() + (1 - jAsFloat) * m_boundingBox.Y().GetMin();
-                    const float z = kAsFloat * m_boundingBox.Z().GetMax() + (1 - kAsFloat) * m_boundingBox.Z().GetMin();
+                    const float x = iAsFloat * m_boundingBox.X().Max() + (1 - iAsFloat) * m_boundingBox.X().Min();
+                    const float y = jAsFloat * m_boundingBox.Y().Max() + (1 - jAsFloat) * m_boundingBox.Y().Min();
+                    const float z = kAsFloat * m_boundingBox.Z().Max() + (1 - kAsFloat) * m_boundingBox.Z().Min();
 
                     const float newX = m_cosTheta * x + m_sinTheta * z;
                     const float newZ = -m_sinTheta * x + m_cosTheta * z;

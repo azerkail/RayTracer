@@ -59,35 +59,35 @@ namespace RayTracer
         {
             const Interval& axisInterval = AxisInterval(axis);
             const float adinv = 1.0f / rayDirection[axis];
-            const float t0 = (axisInterval.GetMin() - rayOrigin[axis]) * adinv;
-            const float t1 = (axisInterval.GetMax() - rayOrigin[axis]) * adinv;
+            const float t0 = (axisInterval.Min() - rayOrigin[axis]) * adinv;
+            const float t1 = (axisInterval.Max() - rayOrigin[axis]) * adinv;
 
             if (t0 < t1)
             {
-                if (t0 > rayInterval.GetMin())
+                if (t0 > rayInterval.Min())
                 {
                     rayInterval.SetMin(t0);
                 }
 
-                if (t1 < rayInterval.GetMax())
+                if (t1 < rayInterval.Max())
                 {
                     rayInterval.SetMax(t1);
                 }
             }
             else
             {
-                if (t1 > rayInterval.GetMin())
+                if (t1 > rayInterval.Min())
                 {
                     rayInterval.SetMin(t1);
                 }
 
-                if (t0 < rayInterval.GetMax())
+                if (t0 < rayInterval.Max())
                 {
                     rayInterval.SetMax(t0);
                 }
             }
 
-            if (rayInterval.GetMax() <= rayInterval.GetMin())
+            if (rayInterval.Max() <= rayInterval.Min())
             {
                 return false;
             }

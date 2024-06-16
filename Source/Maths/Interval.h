@@ -10,8 +10,8 @@ namespace RayTracer
         Interval(float min, float max);
         Interval(const Interval& first, const Interval& second);
 
-        [[nodiscard]] float GetMin() const;
-        [[nodiscard]] float GetMax() const;
+        [[nodiscard]] float Min() const;
+        [[nodiscard]] float Max() const;
         void SetMin(float min);
         void SetMax(float max);
 
