@@ -7,6 +7,7 @@
 #include "Materials/Metal.h"
 #include "Materials/Dieletric.h"
 #include "Materials/DiffuseLight.h"
+#include "Objects/ConstantMedium.h"
 #include "Objects/Quad.h"
 #include "Objects/RotateY.h"
 #include "Objects/Translate.h"
@@ -21,7 +22,7 @@ namespace RayTracer
         std::unique_ptr<HittableVector> world;
         std::unique_ptr<Camera> camera;
 
-        switch (7)
+        switch (8)
         {
         case 1:
             world = std::make_unique<HittableVector>(CreateBouncingSpheres());
@@ -50,6 +51,10 @@ namespace RayTracer
         case 7:
             world = std::make_unique<HittableVector>(CreateCornellBox());
             camera = std::make_unique<Camera>(CreateCornellBoxCamera());
+            break;
+        case 8:
+            world = std::make_unique<HittableVector>(CreateCornellSmoke());
+            camera = std::make_unique<Camera>(CreateCornellSmokeCamera());
             break;
         default:
             LOG_CRITICAL("Scene switch not handled properly.");
@@ -332,6 +337,54 @@ namespace RayTracer
     }
 
     Camera Engine::CreateCornellBoxCamera()
+    {
+        Camera camera{std::make_unique<FileRenderer>()};
+
+        camera.AspectRatio = 1.0f;
+        camera.ImageWidth = 640; // This produces a 640x360 image.
+        camera.SamplesPerPixel = 200;
+        camera.MaxDepth = 50;
+        camera.Background = Color{0, 0, 0};
+        camera.VerticalFOV = 40;
+        camera.LookFrom = Point3{278, 278, -800};
+        camera.LookAt = Point3{278, 278, 0};
+        camera.Up = Vector3{0, 1, 0};
+        camera.DefocusAngle = 0;
+
+        return camera;
+    }
+
+    HittableVector Engine::CreateCornellSmoke()
+    {
+        HittableVector world;
+
+        const auto red = std::make_shared<Lambertian>(Color{0.65f, 0.05f, 0.05f});
+        const auto white = std::make_shared<Lambertian>(Color{0.73f, 0.73f, 0.73f});
+        const auto green = std::make_shared<Lambertian>(Color{0.12f, 0.45f, 0.15f});
+        const auto light = std::make_shared<DiffuseLight>(Color{7, 7, 7});
+
+        world.Add(std::make_shared<Quad>(Point3{555, 0, 0}, Vector3{0, 555, 0}, Vector3{0, 0, 555}, green));
+        world.Add(std::make_shared<Quad>(Point3{0, 0, 0}, Vector3{0, 555, 0}, Vector3{0, 0, 555}, red));
+        world.Add(std::make_shared<Quad>(Point3{113, 554, 127}, Vector3{330, 0, 0}, Vector3{0, 0, 305}, light));
+        world.Add(std::make_shared<Quad>(Point3{0, 555, 0}, Vector3{550, 0, 0}, Vector3{0, 0, 555}, white));
+        world.Add(std::make_shared<Quad>(Point3{0, 0, 0}, Vector3{550, 0, 0}, Vector3{0, 0, 555}, white));
+        world.Add(std::make_shared<Quad>(Point3{0, 0, 555}, Vector3{555, 0, 0}, Vector3{0, 555, 0}, white));
+
+        std::shared_ptr<IHittable> box1 = Utilities::Box(Point3{0, 0, 0}, Point3{165, 330, 165}, white);
+        box1 = std::make_shared<RotateY>(box1, 15);
+        box1 = std::make_shared<Translate>(box1, Vector3{265, 0, 295});
+
+        std::shared_ptr<IHittable> box2 = Utilities::Box(Point3{0, 0, 0}, Point3{165, 165, 165}, white);
+        box2 = std::make_shared<RotateY>(box2, -18);
+        box2 = std::make_shared<Translate>(box2, Vector3{130, 0, 65});
+
+        world.Add(std::make_shared<ConstantMedium>(box1, 0.01f, Color{0, 0, 0}));
+        world.Add(std::make_shared<ConstantMedium>(box2, 0.01f, Color{1, 1, 1}));
+
+        return world;
+    }
+
+    Camera Engine::CreateCornellSmokeCamera()
     {
         Camera camera{std::make_unique<FileRenderer>()};
 

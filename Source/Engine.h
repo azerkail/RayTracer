@@ -25,6 +25,8 @@ namespace RayTracer
         static Camera CreateSimpleLightCamera();
         static HittableVector CreateCornellBox();
         static Camera CreateCornellBoxCamera();
+        static HittableVector CreateCornellSmoke();
+        static Camera CreateCornellSmokeCamera();
     };
 }
 

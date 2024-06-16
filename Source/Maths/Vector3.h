@@ -3,9 +3,10 @@
 
 #include <ostream>
 
-namespace RayTracer {
-
-    class Vector3 {
+namespace RayTracer
+{
+    class Vector3
+    {
     public:
         Vector3();
         Vector3(float x, float y, float z);
@@ -20,9 +21,13 @@ namespace RayTracer {
         Vector3& operator/=(float value);
         float operator[](int index) const;
         float& operator[](int index);
+
         [[nodiscard]] float Length() const;
         [[nodiscard]] float LengthSquared() const;
         [[nodiscard]] bool NearZero() const;
+
+        std::string ToString() const;
+
     private:
         float m_values[3];
     };
@@ -50,7 +55,6 @@ namespace RayTracer {
     Vector3 RandomOnHemisphere(const Vector3& normal);
     Vector3 Reflect(const Vector3& vector, const Vector3& normal);
     Vector3 Refract(const Vector3& uv, const Vector3& normal, float etaIOverEtaT);
-
 }
 
 #endif //RAYTRACER_VECTOR3_H

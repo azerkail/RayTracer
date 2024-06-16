@@ -37,7 +37,7 @@ namespace RayTracer
 
         if (debugging)
         {
-            LOG_INFO("\nIntervalMin = {0}, IntervalMax = {1}\n", result1.Interval, result2.Interval);
+            LOG_INFO("IntervalMin = {0}, IntervalMax = {1}", result1.Interval, result2.Interval);
         }
 
         if (result1.Interval < interval.Min())
@@ -75,7 +75,7 @@ namespace RayTracer
         if (debugging)
         {
             LOG_INFO("HitDistance = {0}, Result.Interval = {1}, Result.Point = {2}", hitDistance, result.Interval,
-                     result.Point);
+                     result.Point.ToString());
         }
 
         result.Normal = Vector3{1, 0, 0};
