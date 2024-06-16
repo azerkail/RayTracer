@@ -22,7 +22,7 @@ namespace RayTracer
         std::unique_ptr<HittableVector> world;
         std::unique_ptr<Camera> camera;
 
-        switch (8)
+        switch (10)
         {
         case 1:
             world = std::make_unique<HittableVector>(CreateBouncingSpheres());
@@ -56,8 +56,13 @@ namespace RayTracer
             world = std::make_unique<HittableVector>(CreateCornellSmoke());
             camera = std::make_unique<Camera>(CreateCornellSmokeCamera());
             break;
+        case 9:
+            world = std::make_unique<HittableVector>(CreateFinalScene());
+            camera = std::make_unique<Camera>(CreateFinalSceneCamera(1920, 10000, 40));
+            break;
         default:
-            LOG_CRITICAL("Scene switch not handled properly.");
+            world = std::make_unique<HittableVector>(CreateFinalScene());
+            camera = std::make_unique<Camera>(CreateFinalSceneCamera(640, 250, 4));
             return;
         }
 
@@ -395,6 +400,98 @@ namespace RayTracer
         camera.Background = Color{0, 0, 0};
         camera.VerticalFOV = 40;
         camera.LookFrom = Point3{278, 278, -800};
+        camera.LookAt = Point3{278, 278, 0};
+        camera.Up = Vector3{0, 1, 0};
+        camera.DefocusAngle = 0;
+
+        return camera;
+    }
+
+    HittableVector Engine::CreateFinalScene()
+    {
+        HittableVector boxes1;
+
+        const auto ground = std::make_shared<Lambertian>(Color{0.48f, 0.83f, 0.53f});
+        constexpr int boxesPerSide = 20;
+
+        for (int i = 0; i < boxesPerSide; ++i)
+        {
+            const auto iAsFloat = static_cast<float>(i);
+
+            for (int j = 0; j < boxesPerSide; ++j)
+            {
+                constexpr float w = 100.0f;
+                const auto jAsFloat = static_cast<float>(j);
+                const float x0 = -1000.0f + iAsFloat * w;
+                const float z0 = -1000.0f + jAsFloat * w;
+                constexpr float y0 = 0.0f;
+                const float x1 = x0 + w;
+                const float y1 = Utilities::RandomFloat(1, 101);
+                const float z1 = z0 + w;
+
+                boxes1.Add(Utilities::Box(Point3{x0, y0, z0}, Point3{x1, y1, z1}, ground));
+            }
+        }
+
+        HittableVector world;
+
+        world.Add(std::make_shared<BVHNode>(boxes1));
+
+        const auto light = std::make_shared<DiffuseLight>(Color{7, 7, 7});
+
+        world.Add(std::make_shared<Quad>(Point3{123, 554, 147}, Vector3{300, 0, 0}, Vector3{0, 0, 265}, light));
+
+        const Point3 center1{400, 400, 200};
+        const Point3 center2 = center1 + Vector3{30, 0, 0};
+        const auto sphereMaterial = std::make_shared<Lambertian>(Color{0.7f, 0.3f, 0.1f});
+
+        world.Add(std::make_shared<Sphere>(center1, center2, 50, sphereMaterial));
+        world.Add(std::make_shared<Sphere>(Point3{0, 150, 145}, 50,
+                                           std::make_shared<Metal>(Color{0.8f, 0.8f, 0.9f}, 1.0f)));
+
+        auto boundary = std::make_shared<Sphere>(Point3{360, 150, 145}, 70, std::make_shared<Dielectric>(1.5f));
+
+        world.Add(boundary);
+        world.Add(std::make_shared<ConstantMedium>(boundary, 0.2f, Color{0.2f, 0.4f, 0.9f}));
+
+        boundary = std::make_shared<Sphere>(Point3{0, 0, 0}, 5000, std::make_shared<Dielectric>(1.5f));
+
+        world.Add(std::make_shared<ConstantMedium>(boundary, 0.0001f, Color{1, 1, 1}));
+
+        const auto earthMaterial = std::make_shared<Lambertian>(std::make_shared<ImageTexture>("earthmap.jpg"));
+
+        world.Add(std::make_shared<Sphere>(Point3{400, 200, 400}, 100, earthMaterial));
+
+        const auto perlinTexture = std::make_shared<NoiseTexture>(0.2f);
+
+        world.Add(std::make_shared<Sphere>(Point3{220, 280, 300}, 80, std::make_shared<Lambertian>(perlinTexture)));
+
+        HittableVector boxes2;
+        const auto white = std::make_shared<Lambertian>(Color{0.73f, 0.73f, 0.73f});
+        constexpr int numberOfSpheres = 1000;
+
+        for (int i = 0; i < numberOfSpheres; ++i)
+        {
+            boxes2.Add(std::make_shared<Sphere>(Random(0, 165), 10, white));
+        }
+
+        world.Add(std::make_shared<Translate>(std::make_shared<RotateY>(std::make_shared<BVHNode>(boxes2), 15),
+                                              Vector3{-100, 270, 395}));
+
+        return world;
+    }
+
+    Camera Engine::CreateFinalSceneCamera(const int imageWidth, const int samplesPerPixel, const int maxDepth)
+    {
+        Camera camera{std::make_unique<FileRenderer>()};
+
+        camera.AspectRatio = 1.0f;
+        camera.ImageWidth = imageWidth;
+        camera.SamplesPerPixel = samplesPerPixel;
+        camera.MaxDepth = maxDepth;
+        camera.Background = Color{0, 0, 0};
+        camera.VerticalFOV = 40;
+        camera.LookFrom = Point3{478, 278, -600};
         camera.LookAt = Point3{278, 278, 0};
         camera.Up = Vector3{0, 1, 0};
         camera.DefocusAngle = 0;
