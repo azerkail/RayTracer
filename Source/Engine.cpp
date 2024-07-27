@@ -63,7 +63,7 @@ namespace RayTracer
         default:
             world = std::make_unique<HittableVector>(CreateFinalScene());
             camera = std::make_unique<Camera>(CreateFinalSceneCamera(640, 250, 4));
-            return;
+            break;
         }
 
         camera->Render(*world);
